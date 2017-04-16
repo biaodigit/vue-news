@@ -1,13 +1,13 @@
 <template>
   <div class="homepage">
     <v-header @showSide="show" :title="title"></v-header>
-    <sidebar :sidebarShow="sidebarShow"></sidebar>
+    <sidebar :sidebarShow="sidebarShow" @hideSidebar="hide" ref="sidebar"></sidebar>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import header from '../header/header.vue'
-  import sidebar from '../sidebar/sidebar.vue'
+  import header from '../Header/Header.vue'
+  import sidebar from '../Sidebar/Sidebar.vue'
 
   export default {
       data() {
@@ -18,7 +18,13 @@
       },
       methods:{
         show() {
-           this.sidebarShow = !this.sidebarShow;
+           this.sidebarShow = true;
+           if(this.sidebarShow){
+               this.$refs.sidebar.fetchData();
+           }
+        },
+        hide() {
+          this.sidebarShow = false;
         }
       },
       components:{

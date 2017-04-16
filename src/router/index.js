@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
+import HomePage from '@/components/HomePage/HomePage'
+import ThemeDetail from '@/components/ThemeDetail/ThemeDetail'
 
 Vue.use(Router)
 
@@ -8,8 +9,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      name: 'homePage',
+      component: HomePage
+    },
+    {
+      path:'/themeDetail/:id',
+      name:'themeDetail',
+      component:ThemeDetail
     }
   ],
   linkActiveClass:'active'

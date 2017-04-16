@@ -12,15 +12,10 @@
             default:'今日热闻'
         }
     },
-    data() {
-      return {
-
-      }
-    },
     methods:{
         showSidebar() {
             this.$emit('showSide');
-        }
+        },
     }
   };
 </script>
@@ -36,6 +31,7 @@
     width 100%
     height 40px
     z-index 1
+    text-align center
     background-color rgb(2,143,214)
     & > h2
       line-height 40px
