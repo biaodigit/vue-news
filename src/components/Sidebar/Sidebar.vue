@@ -20,7 +20,7 @@
           </li>
         </ul>
       </div>
-      <<div class="bottom-menu">
+      <div class="bottom-menu">
         <div class="menu"  v-for="(item,index) in menu" v-if="index>2">
           <div class="avatar"><img :src="item.avatar" width="20" height="20"></div>
           <div class="name">{{item.name}}</div>
@@ -78,7 +78,6 @@
         fetchData() {
             axios.get('api/themes').then((response) => {
                 this.data = response.data.others;
-
                 this.data.unshift({
                   color: 0,
                   thumbnail: '',
@@ -86,7 +85,6 @@
                   id: -1,
                   name: '首页'
                 });
-
                 this.$nextTick(() => {
                   this.themeScroll = new BScroll(this.$refs.themeWrapper,{
                     click:true
@@ -104,6 +102,7 @@
             }else if(id == this.$route.params.id){
                 this.hide();
             }else {
+              this.hide();
               this.$store.dispatch('changeCurrentThemeId',id);
               router.push({ name: 'themeDetail', params: { id: id } });
               console.log(this.$store.state.currentThemeId)
@@ -122,10 +121,10 @@
   @import '../../common/stylus/mixin.styl'
 
   .sidebar
-    position absolute
+    position fixed
     top 0
     left 0
-    z-index 2
+    z-index 10
     height 100%
     width 230px
     background-color rgb(35,42,48)
