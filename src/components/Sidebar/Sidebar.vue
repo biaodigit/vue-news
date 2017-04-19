@@ -1,33 +1,38 @@
 <template>
-  <transition name="fold">
-    <div class="sidebar" v-show="sidebarShow">
-      <div class="user">
+  <div>
+    <transition name="fold">
+      <div class="sidebar"  v-show="sidebarShow">
+        <div class="user">
         <div class="avatar"></div>
         <div class="username">哈哈哈蜜瓜</div>
         <div class="back" @click="hide"><img src="./back.png" width="20" height="20"></div>
       </div>
-      <div class="menu-list">
+        <div class="menu-list">
         <div class="menu"  v-for="(item,index) in menu" v-if="index<3">
           <div class="avatar"><img :src="item.avatar" width="20" height="20"></div>
           <div class="name">{{item.name}}</div>
         </div>
       </div>
-      <div class="theme-list" ref="themeWrapper">
-        <ul>
-          <li class="theme" v-for="item in data" @click="goTheme(item.id)" :class="{'current':currentThemeId===item.id}">
-            <div class="icon" v-if="item.id == -1"><img src="./home.png" width="20" height="20"></div>
-            <div class="content">{{item.name}}</div>
+        <div class="themes-list" ref="themeWrapper">
+        <ul style="padding-left: 0">
+          <li class="themes" v-for="item in data" @click="goTheme(item.id)" :class="{'current':currentThemeId===item.id}">
+            <div class="icons" v-if="item.id == -1"><img src="./home.png" width="20" height="20"></div>
+            <div class="themetitle">{{item.name}}</div>
           </li>
         </ul>
       </div>
-      <div class="bottom-menu">
+        <div class="bottom-menu">
         <div class="menu"  v-for="(item,index) in menu" v-if="index>2">
           <div class="avatar"><img :src="item.avatar" width="20" height="20"></div>
           <div class="name">{{item.name}}</div>
         </div>
       </div>
-    </div>
-  </transition>
+      </div>
+    </transition>
+    <transition name="fade">
+      <div class="mask"  @click.stop.prevent="hide"  v-show="sidebarShow"></div>
+    </transition>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -124,7 +129,7 @@
     position fixed
     top 0
     left 0
-    z-index 10
+    z-index 50
     height 100%
     width 230px
     background-color rgb(35,42,48)
@@ -167,22 +172,24 @@
           margin-bottom 5px
         .name
           color rgb(148,153,157)
-    .theme-list
+    .themes-list
       position absolute
       top 114px
       bottom 56px
       width 100%
       overflow hidden
-      .theme
+      .themes
+        display table
+        width 100%
         padding-left 15px
         color rgb(148,153,157)
         &.current
           background-color rgb(27,35,41)
           color rgb(255,255,255)
-        .icon
+        .icons
           display inline-block
           margin-right 5px
-        .content
+        .themetitle
           display inline-block
           line-height 50px
 
@@ -201,4 +208,17 @@
           margin-bottom 5px
         .name
           color rgb(148,153,157)
+  .mask
+    position fixed
+    top 0
+    left 0
+    width 100%
+    height 100%
+    z-index 40
+    background: rgba(7, 17, 27, 0.6)
+    opacity 1
+    &.fade-enter-active,&.fade-leave-active
+      transition all 0.5s
+    &.fade-enter,&.fade-leave-active
+      opacity 0
 </style>
