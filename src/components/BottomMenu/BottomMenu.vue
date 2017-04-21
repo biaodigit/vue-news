@@ -25,7 +25,7 @@
             </mt-swipe-item>
           </mt-swipe>
         </div>
-        <div class="button" @click="changeCollect(newid)">{{collectname}}</div>
+        <div class="button" @click="changeCollect">{{collectname}}</div>
         <div class="button" @click="hideShare">取消</div>
       </div>
     </transition>
@@ -45,7 +45,11 @@
         thumb:false,
         shareshow:false,
         collect:false,
-        newid:this.$route.params.id
+      }
+    },
+    watch:{
+      '$route'(to,from){
+          this.fetchExtraData();
       }
     },
     created() {
@@ -100,7 +104,7 @@
     },
     methods:{
       fetchExtraData() {
-        axios.get('api/story-extra/' + this.newid).then(response => {
+        axios.get('api/story-extra/' + this.$store.state.id).then(response => {
             this.$store.state.long_comments = response.data.long_comments;
             this.$store.state.popularity = response.data.popularity;
             this.$store.state.short_comments = response.data.short_comments;
@@ -125,11 +129,9 @@
       },
       hideShare() {
         this.shareshow = !this.shareshow
-        console.log(this.shareshow);
       },
       changeCollect(id){
         this.collect = !this.collect;
-        console.log(id);
       },
     },
     computed:{
