@@ -8,10 +8,18 @@
         <div class="back" @click="hide"><img src="./back.png" width="20" height="20"></div>
       </div>
         <div class="menu-list">
-        <div class="menu"  v-for="(item,index) in menu" v-if="index<3">
-          <div class="avatar"><img :src="item.avatar" width="20" height="20"></div>
-          <div class="name">{{item.name}}</div>
-        </div>
+          <div class="menu" @click="goCollect">
+            <div class="avatar"><img src="./collect.png" width="20" height="20"></div>
+            <div class="name">收藏</div>
+          </div>
+          <div class="menu">
+            <div class="avatar"><img src="./news.png" width="20" height="20"></div>
+            <div class="name">消息</div>
+          </div>
+          <div class="menu">
+            <div class="avatar"><img src="./set.png" width="20" height="20"></div>
+            <div class="name">设置</div>
+          </div>
       </div>
         <div class="themes-list" ref="themeWrapper">
         <ul style="padding-left: 0">
@@ -22,11 +30,15 @@
         </ul>
       </div>
         <div class="bottom-menu">
-        <div class="menu"  v-for="(item,index) in menu" v-if="index>2">
-          <div class="avatar"><img :src="item.avatar" width="20" height="20"></div>
-          <div class="name">{{item.name}}</div>
+          <div class="menu">
+            <div class="avatar"><img src="./set.png" width="20" height="20"></div>
+            <div class="name">离线</div>
+          </div>
+          <div class="menu">
+            <div class="avatar"><img src="./nightoff.png" width="20" height="20"></div>
+            <div class="name">夜间</div>
+          </div>
         </div>
-      </div>
       </div>
     </transition>
     <transition name="fade">
@@ -39,7 +51,7 @@
   import axios from 'axios';
   import BScroll from 'better-scroll';
   import router from '../../router/index';
-
+  import collect from '../Collect/Collect.vue'
   export default {
     props:{
         sidebarShow:{
@@ -53,28 +65,16 @@
     data() {
       return {
           data:[],
+//          showCollect:false
       }
     },
     created() {
       this.fetchData();
-      this.menu = [
-        {
-          name:'收藏',
-          avatar:require('./collect.png')
-        },{
-          name:'消息',
-          avatar:require('./news.png')
-        },{
-          name:'设置',
-          avatar:require('./set.png')
-        },{
-          name:'离线',
-          avatar:require('./offline.png')
-        },{
-          name:'夜间',
-          avatar:require('./nightoff.png')
+    },
+    watch:{
+        '$route'(to,form){
+            this.fetchData();
         }
-      ]
     },
     methods:{
         hide() {
@@ -99,6 +99,9 @@
                 console.log('error');
             })
         },
+        goCollect() {
+          router.push({ name:'collect' })
+        },
         goTheme(id) {
             if(id == -1) {
               this.hide();
@@ -110,7 +113,6 @@
               this.hide();
               this.$store.dispatch('changeCurrentThemeId',id);
               router.push({ name: 'themeDetail', params: { id: id } });
-              console.log(this.$store.state.currentThemeId)
             }
         }
     },
@@ -118,6 +120,9 @@
         currentThemeId() {
             return this.$store.state.currentThemeId;
         }
+    },
+    components:{
+        collect
     }
   }
 </script>
