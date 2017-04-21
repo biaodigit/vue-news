@@ -10,6 +10,9 @@ export default {
   addNews:({ commit },payload) => {
     commit(types.ADD_NEWS,payload)
   },
+  addNewId:({commit},id) => {
+    commit(types.ADD_NEWID,id)
+  },
   changeFirstLoad:({ commit }) => {
     commit(types.CHANGE_FIRST_LOAD)
   },
@@ -18,5 +21,8 @@ export default {
   },
   deleteData:({commit}) => {
     commit(types.DELETE_STORIES);
+  },
+  changeStoryExtra:({commit},extra) => {
+    commit(types.STORY_EXTRA,extra)
   }
 }
