@@ -20,6 +20,7 @@
            datestr:''
         }
       },
+      //创建生命周期
       created() {
           if(this.$store.state.isFirstLoad) {
             this.fetchData();
@@ -34,17 +35,20 @@
           })
       },
       methods:{
+          //下拉刷新回掉函数
           refreshData() {
             this.$store.dispatch('deleteData');
             this.$nextTick(() => {
                 this.fetchData();
             })
           },
+          //上拉加载回掉函数
           loadMoreData() {
             this.$nextTick(() => {
                 this.fetchMoreDate();
             })
           },
+          //获取最新消息
           fetchData() {
             axios.get('api/news/latest').then((response) => {
               let stories = response.data.stories;
@@ -55,7 +59,7 @@
                 ids:ids
               })
             }).catch((error) => {
-              console.log(error)
+                 console.log(error)
             })
           },
           //转换图片url
@@ -100,14 +104,16 @@
 
             this.decreaseDateStr();
           },
+          //隐藏侧边栏，向上派发事件
           hideSidebar() {
               this.$emit('hideSidebar')
           },
+          //去往详情页
           goNew(id) {
               this.$store.state.id = id;
               router.push({ name:'newDetail', params:{ id:id }});
-              console.log(id);
               this.$store.dispatch('judgeCollectState');
+              this.$store.dispatch('changeGoType',1)
           }
       }
   }

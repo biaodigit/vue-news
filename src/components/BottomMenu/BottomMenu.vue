@@ -4,7 +4,7 @@
     <div class="menu"><img src="./next.png" width="25" height="25"></div>
     <div class="menu" @click="thumbUp"><img :src="thumbs" width="25" height="25"><span class="extra">{{this.$store.state.popularity}}</span></div>
     <div class="menu" @click="showShare"><img src="./share.png" width="25" height="25"></div>
-    <div class="menu"><img src="./common.png" width="25" height="25"><span class="extra" v-if="this.$store.state.comments != 0">{{this.$store.state.comments}}</span></div>
+    <div class="menu" @click="goComments(newId)"><img src="./common.png" width="25" height="25"><span class="extra" v-if="this.$store.state.comments != 0">{{this.$store.state.comments}}</span></div>
     <transition name="fold">
       <div class="share" v-show="shareshow">
         <div class="title">分享这篇内容</div>
@@ -96,24 +96,32 @@
         }
       ]
     },
-    watch:{
-      '$route'(to,from){
-          this.fetchExtraData()
-      }
-    },
     methods:{
       fetchExtraData() {
+        let id = this.$store.state.id;
         axios.get('api/story-extra/' + this.$store.state.id).then(response => {
-            this.$store.state.long_comments = response.data.long_comments;
-            this.$store.state.popularity = response.data.popularity;
-            this.$store.state.short_comments = response.data.short_comments;
-            this.$store.state.comments = response.data.comments;
+            let long_comments = response.data.long_comments;
+            let popularity = response.data.popularity;
+            let short_comments = response.data.short_comments;
+            let comments = response.data.comments;
+
+            this.$store.dispatch('changeStoryExtra',{
+                long_comments:long_comments,
+                short_comments:short_comments,
+                comments:comments,
+                popularity:popularity
+            })
           }).catch(error => {
             console.log(error);
           });
       },
       goBack() {
-        router.go(-1);
+        if(this.$store.state.goType == 1){
+            router.push({ name:'homePage'})
+        }else if(this.$store.state.goType == 2){
+           router.push({ name:'collect'})
+        };
+        console.log(this.$store.state.goType);
       },
       thumbUp() {
         this.thumb = !this.thumb;
@@ -132,6 +140,9 @@
       changeCollect(){
         this.$store.dispatch('changeCollectState')
       },
+      goComments(id){
+          router.push({ name:'comments',params:{id:id}})
+      }
     },
     computed:{
        thumbs() {
@@ -141,12 +152,8 @@
               return require('./thumbup.png');
            }
        },
-       collectname() {
-         if(this.collect){
-             return '已收藏'
-         }else{
-             return '收藏'
-         }
+       newId(){
+         return this.$store.state.id;
        }
     }
   }
@@ -223,6 +230,7 @@
         background rgb(255,255,255)
         text-align center
         line-height 40px
+
     .mask
       position fixed
       top 0

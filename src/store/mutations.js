@@ -24,10 +24,10 @@ export default {
     state.stories = [];
   },
   [types.STORY_EXTRA](state,extra){
-    state.popularity = extra.popularity;
     state.comments = extra.comments;
     state.long_comments = extra.long_comments;
     state.short_comments = extra.short_comments;
+    state.popularity = extra.popularity
   },
   [types.JUDGE_COLLECT_STATE](state){
     if(state.isCollectIds.indexOf(state.id) < 0){
@@ -41,9 +41,9 @@ export default {
     if(index < 0){
         state.isCollect = true;
         state.isCollectIds.push(state.id);
-        state.stories.map((item) => {
-          if(item.id == state.id){
-            state.isCollectNews.push(item);
+        state.stories.forEach((story) => {
+          if(story.id == state.id){
+            state.isCollectNews.push(story);
           }
         })
     }else{
@@ -51,6 +51,8 @@ export default {
       state.isCollectIds.splice(index,1);
       state.isCollectNews.splice(index,1)
     }
-
+  },
+  [types.CHANGE_GO_TYPES](state,id){
+    state.goType = id;
   }
 }

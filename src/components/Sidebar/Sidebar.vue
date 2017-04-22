@@ -108,7 +108,7 @@
               router.push({name: 'homePage'});
               this.$store.dispatch('changeCurrentThemeId',id);
             }else if(id == this.$route.params.id){
-                this.hide();
+              this.hide();
             }else {
               this.hide();
               this.$store.dispatch('changeCurrentThemeId',id);

@@ -1,10 +1,10 @@
 <template>
   <transition name="fold">
     <div class="collect">
-      <div class="collectHeader"><span class="back" @click="back "><img src="./back.png" width="30" height="30"></span><h3>收藏</h3></div>
+      <div class="collectHeader"><span class="back" @click="back "><img src="./back.png" width="20" height="20"></span><h3>收藏</h3></div>
       <div class="collectNewList">
         <ul>
-          <li v-for="story in data" class="new border-1px">
+          <li v-for="story in data" class="new border-1px" @click="goNew(story.id)">
             <span class="title">{{story.title}}</span>
             <span class="avatar"><img :src="attachImageUrl(story.images[0])"></span>
           </li>
@@ -27,12 +27,18 @@
     },
     methods:{
       back() {
-          router.go(-1);
+        router.push({ name:'homePage' });
       },
       attachImageUrl(srcUrl) {
         if (srcUrl !== undefined) {
           return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
         }
+      },
+      goNew(id) {
+        this.$store.state.id = id;
+        router.push({ name:'newDetail', params:{ id:id }});
+        this.$store.dispatch('judgeCollectState');
+        this.$store.dispatch('changeGoType',2)
       }
     },
     components:{
@@ -68,6 +74,7 @@
       .back
         position absolute
         left 10px
+        bottom 2px
     .collectNewList
       position absolute
       top 40px

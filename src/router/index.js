@@ -4,6 +4,8 @@ import HomePage from '@/components/HomePage/HomePage'
 import ThemeDetail from '@/components/ThemeDetail/ThemeDetail'
 import NewDetail from '@/components/NewDetail/NewDetail'
 import Collect from '@/components/Collect/Collect'
+import Comments from '@/components/Comments/Comments'
+
 Vue.use(Router)
 
 export default new Router({
@@ -27,6 +29,11 @@ export default new Router({
       path:'/collect',
       name:'collect',
       component:Collect
+    },
+    {
+      path:'/comments/:id',
+      name:'comments',
+      component:Comments
     }
   ],
   linkActiveClass:'active'

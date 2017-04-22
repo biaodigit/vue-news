@@ -58,7 +58,6 @@
               this.$nextTick(() => {
                   this.$refs.sidebar.fetchData();
               })
-
           }
         },
         hide() {

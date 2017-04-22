@@ -30,5 +30,8 @@ export default {
   },
   changeCollectState:({commit}) => {
     commit(types.CHANGE_COLLECT_STATE)
+  },
+  changeGoType:({commit},id) => {
+    commit(types.CHANGE_GO_TYPES,id)
   }
 }
