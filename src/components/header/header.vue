@@ -30,7 +30,7 @@
     font-size 0
     width 100%
     height 40px
-    z-index 1
+    z-index 5
     text-align center
     background-color rgb(2,143,214)
     & > h2

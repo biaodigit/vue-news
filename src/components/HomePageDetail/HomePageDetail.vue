@@ -1,9 +1,9 @@
 <template>
   <div class="newList">
     <ul>
-      <li v-for="story in this.$store.state.stories" :key="story.id" class="new border-1px">
+      <li v-for="story in this.$store.state.stories" :key="story.id" class="new border-1px" @click="goNew(story.id)">
         <span class="title">{{story.title}}</span>
-        <span class="avatar"><img :src="attachImageUrl(story.images[0])"></span>
+        <span class="avatar" v-for="(item,index) in story.images" v-if="index<1"><img v-lazy="attachImageUrl(item)"></span>
       </li>
     </ul>
   </div>
@@ -42,22 +42,23 @@
           },
           loadMoreData() {
             this.$nextTick(() => {
-                this.fetchMoreDare();
+                this.fetchMoreDate();
             })
           },
           fetchData() {
-              axios.get('api/news/latest').then((response) => {
-                 let stories = response.data.stories;
-                 let ids = stories.map(story => story.id)
+            axios.get('api/news/latest').then((response) => {
+              let stories = response.data.stories;
+              let ids = stories.map(story => story.id)
 
-                  this.$store.dispatch('addNews',{
-                      stories:stories,
-                      ids:ids
-                  })
-              }).catch((error) => {
-                  console.log(error)
+              this.$store.dispatch('addNews',{
+                stories:stories,
+                ids:ids
               })
+            }).catch((error) => {
+              console.log(error)
+            })
           },
+          //转换图片url
           attachImageUrl(srcUrl) {
             if (srcUrl !== undefined) {
               return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
@@ -65,38 +66,48 @@
           },
           //获取第一次加载当前日期
           initDate() {
-              this.date = new Date();
-              this.changeDateStr();
+            this.date = new Date();
+            this.changeDateStr();
           },
           //把日期改为字符串形式
           changeDateStr() {
-              let year = this.date.getFullYear();
-              let month = this.date.getMonth() + 1;
-              let day = this.date.getDate();
-              month = month < 10 ? '0'+ month : month;
-              day = day  < 10 ? '0' + day : day
-              this.datestr = year + month + day;
+            let year = this.date.getFullYear();
+            let month = this.date.getMonth();
+            let date = this.date.getDate();
+            month = month < 10 ? '0' + month : month;
+            date = date < 10 ? '0' + date : date;
+
+            this.datestr = year + month + date;
           },
           //将日期推前一天
           decreaseDateStr() {
-             this.date.setDate(this.date.getDate() - 1);
-             this.changeDateStr();
+            this.date.setDate(this.date.getDate() - 1);
+            this.changeDateStr();
           },
           //获取前一天的新闻
-          fetchMoreDare() {
-              axios.get('api/news/before/'+ this.datestr).then((response) => {
-                let stories = response.data.stories;
-                let ids = stories.map(story => story.id)
+          fetchMoreDate() {
+            axios.get('api/news/before/'+ this.datestr).then((response) => {
+              let stories = response.data.stories;
+              let ids = stories.map(story => story.id)
 
-                this.$store.dispatch('addNews',{
-                  stories:stories,
-                  ids:ids
-                })
-              }).catch((error) => {
-                  console.log(error)
+              this.$store.dispatch('addNews',{
+                stories:stories,
+                ids:ids
               })
+            }).catch((error) => {
+              console.log(error)
+            })
 
-             this.decreaseDateStr();
+            this.decreaseDateStr();
+          },
+          hideSidebar() {
+              this.$emit('hideSidebar')
+          },
+          goNew(id) {
+              this.$store.state.id = id;
+              router.push({ name:'newDetail', params:{ id:id }});
+              console.log(id);
+              this.$store.dispatch('judgeCollectState');
           }
       }
   }
@@ -113,7 +124,9 @@
     height 100%
     .new
       display flex
-      padding 13px 10px
+      position relative
+      left -15px
+      padding 20px 0 20px 10px
       border-1px(rgba(7,17,27,0.1))
       .title
         flex 1
@@ -126,4 +139,8 @@
         img
           width 70px
           height 55px
+          img[lazy=loading]
+            height 55px
+            width 70px
+            margin auto
 </style>

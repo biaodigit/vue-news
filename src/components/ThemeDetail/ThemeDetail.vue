@@ -20,7 +20,6 @@
     watch:{
       '$route'(to,from){
           this.fetchData();
-          this.hide();
       }
     },
     created() {
@@ -28,11 +27,13 @@
     },
     methods:{
       fetchData() {
-        axios.get('api/theme/'+ this.$route.params.id).then((response) => {
-            this.data = response.data
-        }).catch((error) => {
-            console.log(error)
-        });
+          if(this.$store.state.currentThemeId != -1) {
+            axios.get('api/theme/' + this.$store.state.currentThemeId).then((response) => {
+              this.data = response.data
+            }).catch((error) => {
+              console.log(error)
+            });
+          }
       },
       show() {
         this.sidebarShow = true;
@@ -42,6 +43,11 @@
       },
       hide() {
         this.sidebarShow = false;
+      }
+    },
+    computed: {
+      currentThemeId() {
+        return this.$store.state.currentThemeId;
       }
     },
     components:{

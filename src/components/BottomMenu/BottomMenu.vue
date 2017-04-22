@@ -3,8 +3,7 @@
     <div class="menu" @click="goBack"><img src="./back.png" width="25" height="25"></div>
     <div class="menu"><img src="./next.png" width="25" height="25"></div>
     <div class="menu" @click="thumbUp"><img :src="thumbs" width="25" height="25"><span class="extra">{{this.$store.state.popularity}}</span></div>
-    <div class="menu" @click="showShare"><img src="./share.png" width="25" height="25">
-    </div>
+    <div class="menu" @click="showShare"><img src="./share.png" width="25" height="25"></div>
     <div class="menu"><img src="./common.png" width="25" height="25"><span class="extra" v-if="this.$store.state.comments != 0">{{this.$store.state.comments}}</span></div>
     <transition name="fold">
       <div class="share" v-show="shareshow">
@@ -25,7 +24,7 @@
             </mt-swipe-item>
           </mt-swipe>
         </div>
-        <div class="button" @click="changeCollect">{{collectname}}</div>
+        <div class="button" @click="changeCollect">{{this.$store.getters.getCollect}}</div>
         <div class="button" @click="hideShare">取消</div>
       </div>
     </transition>
@@ -130,8 +129,8 @@
       hideShare() {
         this.shareshow = !this.shareshow
       },
-      changeCollect(id){
-        this.collect = !this.collect;
+      changeCollect(){
+        this.$store.dispatch('changeCollectState')
       },
     },
     computed:{

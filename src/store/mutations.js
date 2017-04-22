@@ -28,5 +28,29 @@ export default {
     state.comments = extra.comments;
     state.long_comments = extra.long_comments;
     state.short_comments = extra.short_comments;
+  },
+  [types.JUDGE_COLLECT_STATE](state){
+    if(state.isCollectIds.indexOf(state.id) < 0){
+       state.isCollect = false;
+    }else{
+       state.isCollect = true;
+    }
+  },
+  [types.CHANGE_COLLECT_STATE](state){
+    let index = state.isCollectIds.indexOf(state.id)
+    if(index < 0){
+        state.isCollect = true;
+        state.isCollectIds.push(state.id);
+        state.stories.map((item) => {
+          if(item.id == state.id){
+            state.isCollectNews.push(item);
+          }
+        })
+    }else{
+      state.isCollect = false;
+      state.isCollectIds.splice(index,1);
+      state.isCollectNews.splice(index,1)
+    }
+
   }
 }

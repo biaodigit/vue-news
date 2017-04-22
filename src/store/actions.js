@@ -24,5 +24,11 @@ export default {
   },
   changeStoryExtra:({commit},extra) => {
     commit(types.STORY_EXTRA,extra)
+  },
+  judgeCollectState:({commit}) => {
+    commit(types.JUDGE_COLLECT_STATE);
+  },
+  changeCollectState:({commit}) => {
+    commit(types.CHANGE_COLLECT_STATE)
   }
 }
