@@ -37,7 +37,7 @@
           goNew(id) {
             this.$store.dispatch('addNewId',id);
             router.push({ name:'newDetail', params:{ id:id }})
-            console.log(this.$store.state.id)
+            this.$store.dispatch('changeGoType',1)
           }
       }
   }
