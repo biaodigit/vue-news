@@ -119,9 +119,10 @@
         if(this.$store.state.goType == 1){
             router.push({ name:'homePage'})
         }else if(this.$store.state.goType == 2){
-           router.push({ name:'collect'})
-        }else if(this.$store.state.goTyoe ==3){
-            router.push({ name:'themeDetail',params:{id:this.$store.state.currentThemeId}})
+           router.push({ name:'collect'});
+          this.$store.dispatch('changeGoType',1);
+        }else if(this.$store.state.goType == 3){
+            router.push({ name:'themeDetail',params:{id:this.$store.state.currentThemeId}});
         };
       },
       thumbUp() {

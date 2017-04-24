@@ -1,7 +1,7 @@
 <template>
   <transition name="fold">
     <div class="collect">
-      <div class="collectHeader"><span class="back" @click="back "><img src="./back.png" width="20" height="20"></span><h3>收藏</h3></div>
+      <sonheader @back="back" :title="title"></sonheader>
       <div class="collectNewList">
         <ul>
           <li v-for="story in data" class="new border-1px" @click="goNew(story.id)">
@@ -17,17 +17,24 @@
 <script type="text/ecmascript-6">
   import router from '../../router'
   import sidebar from '../Sidebar/Sidebar.vue'
+  import sonheader from '../SonHeader/SonHeader.vue'
 
   export default {
     data() {
       return {
          data:this.$store.state.isCollectNews,
-         sidebarShow:false
+         sidebarShow:false,
+         title:'收藏'
       }
     },
     methods:{
       back() {
-        router.push({ name:'homePage' });
+        let id = this.$store.state.currentThemeId;
+        if(this.$store.state.currentThemeId > 0){
+            router.push({name:'themeDetail',params:{id:id}})
+        }else{
+            router.push({name:'homePage'})
+        }
       },
       attachImageUrl(srcUrl) {
         if (srcUrl !== undefined) {
@@ -39,10 +46,11 @@
         router.push({ name:'newDetail', params:{ id:id }});
         this.$store.dispatch('judgeCollectState');
         this.$store.dispatch('changeGoType',2)
+        console.log(this.$store.state.currentThemeId)
       }
     },
     components:{
-        sidebar
+        sonheader
     }
   }
 </script>
@@ -60,21 +68,6 @@
       transition all 0.5s
     &.fold-enter,&.fold-leave-active
       transform translate3d(100%,0,0)
-    .collectHeader
-      position fixed
-      width 100%
-      height 40px
-      text-align center
-      z-index 50
-      line-height 40px
-      background rgb(2,143,214)
-      & > h3
-        font-size 20px
-        color white
-      .back
-        position absolute
-        left 10px
-        bottom 2px
     .collectNewList
       position absolute
       top 40px

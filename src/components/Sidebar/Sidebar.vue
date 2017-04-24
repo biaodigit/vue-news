@@ -106,6 +106,7 @@
             if(id == -1) {
               this.hide();
               router.push({name: 'homePage'});
+              this.$store.dispatch('changeGoType',1)
               this.$store.dispatch('changeCurrentThemeId',id);
             }else if(id == this.$route.params.id){
               this.hide();
