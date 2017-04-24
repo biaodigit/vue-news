@@ -3,23 +3,23 @@
     <div class="commentsHeader"><span class="back" @click="back "><img src="./back.png" width="20" height="20"></span><h3>{{this.$store.state.comments}}条评论</h3></div>
     <div class="commentsArea">
       <div class="longComments">
-        <div class="longCommentsTitle border-1px" @click="showLongComment">{{this.$store.state.long_comments}}条长评</div>
+        <div class="longCommentsTitle border-1px" @click="showLongComment">{{this.$store.state.long_comments}}条长评<img class="thumb" :src="longThumb"></div>
         <div class="longComment border-1px" v-for="item in longcomments" v-show="longCommentShow">
           <span class="avatar"><img :src="attachImageUrl(item.avatar)" width="30" height="30"></span>
           <div class="content">
             <span class="name">{{item.author}}</span>
-            <span class="likes">{{item.likes}}</span><br>
+            <span class="likes"><img src="./thumbup.png" width="20" height="20">{{item.likes}}</span><br>
             <span class="comment">{{item.content}}</span>
           </div>
         </div>
       </div>
       <div class="shortComments">
-        <div class="shortCommentsTitle border-1px" @click="showShortComment">{{this.$store.state.short_comments}}条短评</div>
+        <div class="shortCommentsTitle border-1px" @click="showShortComment">{{this.$store.state.short_comments}}条短评<img class="thumb" :src="shortThumb"></div>
         <div class="shortComment border-1px" v-for="item in shortcomments" v-show="shortCommentShow">
           <span class="avatar"><img :src="attachImageUrl(item.avatar)" width="30" height="30"></span>
           <div class="content">
             <span class="name">{{item.author}}</span>
-            <span class="likes">{{item.likes}}</span><br>
+            <span class="likes"><img src="./thumbup.png" width="20" height="20">{{item.likes}}</span><br>
             <span class="comment">{{item.content}}</span>
           </div>
         </div>
@@ -77,6 +77,22 @@
       showShortComment() {
         this.shortCommentShow = !this.shortCommentShow;
       },
+    },
+    computed:{
+        longThumb() {
+           if(this.longCommentShow){
+               return require('./down.png')
+           }else{
+               return require('./up.png')
+           }
+        },
+        shortThumb() {
+          if(this.shortCommentShow){
+            return require('./down.png')
+          }else{
+            return require('./up.png')
+          }
+        },
     }
   }
 </script>
@@ -116,6 +132,12 @@
            font-weight 700
            color rgb(7,17,27)
            border-1px(rgba(7,17,27,0.1))
+           .thumb
+              position absolute
+              top 8px
+              right 10px
+              width 20px
+              height 20px
          .longComment,.shortComment
            display flex
            width 94%
@@ -138,12 +160,12 @@
              .likes
                position absolute
                width 20px
+               height 20px
                right 5px
-
-
-
-
-
+               img
+                 position absolute
+                 right 20px
+                 top 2px
 
 
 

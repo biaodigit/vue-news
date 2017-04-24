@@ -77,7 +77,7 @@
         .title
           position relative
           bottom 50px
-          font-size 20px
+          font-size 18px
           text-align center
           left 10px
           color rgb(255,255,255)
