@@ -1,6 +1,6 @@
 <template>
   <div class="comments">
-    <div class="commentsHeader"><span class="back" @click="back "><img src="./back.png" width="20" height="20"></span><h3>{{this.$store.state.comments}}条评论</h3></div>
+    <sonheader @back="back" :title="title"></sonheader>
     <div class="commentsArea">
       <div class="longComments">
         <div class="longCommentsTitle border-1px" @click="showLongComment">{{this.$store.state.long_comments}}条长评<img class="thumb" :src="longThumb"></div>
@@ -32,6 +32,7 @@
 <script type="text/ecmascript-6">
   import router from '../../router'
   import axios from 'axios'
+  import sonheader from '../SonHeader/SonHeader.vue'
 
   export default {
     data() {
@@ -39,7 +40,8 @@
            longcomments:{},
            shortcomments:{},
            longCommentShow:true,
-           shortCommentShow:false
+           shortCommentShow:false,
+           title:''
         }
     },
     created() {
@@ -56,7 +58,9 @@
        fetchLongData() {
          axios.get('api/story/'+ this.$store.state.id + '/long-comments').then((response) => {
              this.longcomments = response.data.comments;
-         })
+         });
+
+         this.title = this.$store.state.comments + '条评论'
        },
       fetchShortData() {
         axios.get('api/story/'+ this.$store.state.id + '/short-comments').then((response) => {
@@ -75,7 +79,7 @@
           this.longCommentShow = !this.longCommentShow;
        },
       showShortComment() {
-        this.shortCommentShow = !this.shortCommentShow;
+          this.shortCommentShow = !this.shortCommentShow;
       },
     },
     computed:{
@@ -93,6 +97,9 @@
             return require('./up.png')
           }
         },
+    },
+    components:{
+        sonheader
     }
   }
 </script>
@@ -103,21 +110,6 @@
    .comments
      width 100%
      height 100%
-     .commentsHeader
-       position fixed
-       width 100%
-       height 40px
-       text-align center
-       z-index 50
-       line-height 40px
-       background rgb(2,143,214)
-       & > h3
-         font-size 20px
-         color white
-       .back
-         position absolute
-         left 10px
-         bottom 2px
      .commentsArea
        position absolute
        top 40px
@@ -142,7 +134,7 @@
            display flex
            width 94%
            padding 10px 10px 0  10px
-           border-bottom 1px solid rgba(7,17,27,0.1)
+           border-1px(rgba(7,17,27,0.1))
            .avatar
              flex 0 0 30px
              width 30px
