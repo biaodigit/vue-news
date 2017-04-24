@@ -5,7 +5,7 @@ import ThemeDetail from '@/components/ThemeDetail/ThemeDetail'
 import NewDetail from '@/components/NewDetail/NewDetail'
 import Collect from '@/components/Collect/Collect'
 import Comments from '@/components/Comments/Comments'
-
+import EditorsList from '@/components/EditorsList/EditorsList'
 Vue.use(Router)
 
 export default new Router({
@@ -34,6 +34,11 @@ export default new Router({
       path:'/comments/:id',
       name:'comments',
       component:Comments
+    },
+    {
+      path:'/editorsList/:id',
+      name:'editorsList',
+      component:EditorsList
     }
   ],
   linkActiveClass:'active'
