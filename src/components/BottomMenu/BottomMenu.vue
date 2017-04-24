@@ -120,8 +120,9 @@
             router.push({ name:'homePage'})
         }else if(this.$store.state.goType == 2){
            router.push({ name:'collect'})
+        }else if(this.$store.state.goTyoe ==3){
+            router.push({ name:'themeDetail',params:{id:this.$store.state.currentThemeId}})
         };
-        console.log(this.$store.state.goType);
       },
       thumbUp() {
         this.thumb = !this.thumb;
@@ -160,7 +161,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import '../../common/stylus/mixin.styl'
+  @import "../../common/stylus/index.styl";
 
   .bottomMenu
     position fixed

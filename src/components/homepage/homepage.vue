@@ -6,7 +6,7 @@
                  @top-status-change="handleTopChange"
                  @bottom-status-change="handleBottomChange" ref="loadmore">
       <swipe></swipe>
-      <homepageDetail @hideSidebar="hide" ref="newList"></homepageDetail>
+      <homepageDetail @hideSidebar="hide" ref="homePageDetail"></homepageDetail>
       <div slot="top" class="mint-loadmore-top">
         <span v-show="topStatus != 'loading'">下拉刷新</span>
         <span v-show="topStatus == 'loading'">刷新中...</span>
@@ -45,11 +45,11 @@
           this.topStatus = status;
         },
         loadTop() {
-          this.$refs.newList.$emit('refresh')
+          this.$refs.homePageDetail.$emit('refresh')
           this.$refs.loadmore.onTopLoaded()
         },
         loadBottom() {
-          this.$refs.newList.$emit('loadMore')
+          this.$refs.homePageDetail.$emit('loadMore')
           this.$refs.loadmore.onBottomLoaded()
         },
         show() {
