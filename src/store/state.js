@@ -16,5 +16,6 @@ export default {
   long_comments:'', //当前新闻长评数
   short_comments:'', //当前新闻短评数
   goType:1,         //去往详情页上一个路由页面类型
-  isNight:false      //是否为夜间模式
+  isNight:false,      //是否为夜间模式
+  currentTheme:''    //当前主题数组
 }

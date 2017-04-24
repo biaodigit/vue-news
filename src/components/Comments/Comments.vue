@@ -114,7 +114,7 @@
        position absolute
        top 40px
        bottom 30px
-       width 100%
+       width 99%
        .longComments,.shortComments
          width 100%
          .longCommentsTitle,.shortCommentsTitle
@@ -157,7 +157,9 @@
                img
                  position absolute
                  right 20px
-                 top 2px
+                 top -25px
+             .comment
+               font-size 18px
 
 
 

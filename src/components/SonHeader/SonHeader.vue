@@ -14,7 +14,6 @@
       methods:{
          back() {
             this.$emit('back')
-
          }
       }
   }

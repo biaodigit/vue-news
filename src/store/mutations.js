@@ -54,5 +54,8 @@ export default {
   },
   [types.CHANGE_GO_TYPES](state,id){
     state.goType = id;
+  },
+  [types.ADD_THEME](state,payload){
+    state.currentTheme = payload;
   }
 }

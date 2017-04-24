@@ -79,7 +79,7 @@
           bottom 50px
           font-size 18px
           text-align center
-          left 10px
+          padding 0 15px
           color rgb(255,255,255)
         img
           width 100%

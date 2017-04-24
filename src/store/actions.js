@@ -33,5 +33,8 @@ export default {
   },
   changeGoType:({commit},id) => {
     commit(types.CHANGE_GO_TYPES,id)
+  },
+  addTheme:({commit},payload) => {
+    commit(types.ADD_THEME,payload)
   }
 }
