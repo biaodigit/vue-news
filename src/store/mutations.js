@@ -57,5 +57,8 @@ export default {
   },
   [types.ADD_THEME](state,payload){
     state.currentTheme = payload;
+  },
+  [types.ADD_EDITOR_ID](state,payload){
+    state.editor = payload;
   }
 }

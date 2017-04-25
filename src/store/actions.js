@@ -36,5 +36,8 @@ export default {
   },
   addTheme:({commit},payload) => {
     commit(types.ADD_THEME,payload)
+  },
+  addEditorId:({commit},payload) => {
+    commit(types.ADD_EDITOR_ID,payload)
   }
 }

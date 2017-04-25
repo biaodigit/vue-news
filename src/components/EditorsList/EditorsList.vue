@@ -3,7 +3,7 @@
     <sonheader :title="title" @back="back"></sonheader>
     <div class="list">
       <ul>
-        <li class="editor border-1px" v-for="editor in this.$store.state.currentTheme.editors">
+        <li class="editor border-1px" v-for="editor in this.$store.state.currentTheme.editors" @click="goEditor(editor.id,editor.name)">
           <div class="avatar">
             <img :src="attachImageUrl(editor.avatar)" height="35" width="35">
           </div>
@@ -37,6 +37,13 @@
         if(srcUrl !== undefined){
           return srcUrl.replace(/http\w{0,1}:\/\/p/g,'https://images.weserv.nl/?url=p')
         }
+      },
+      goEditor(id,name) {
+          router.push({name:'editor',params:{id:id}});
+          this.$store.dispatch('addEditorId',{
+              id:id,
+              name:name
+          });
       }
     },
     components:{
