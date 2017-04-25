@@ -26,28 +26,32 @@
   export default {
     data() {
        return {
-          title:'主编'
+          title:'主编'                   //主编列表头部标题
        }
     },
     methods:{
+      //返回上一级路由
       back() {
-         router.push({name:'themeDetail',params:{id:this.$store.state.currentThemeId}})
+        router.push({name:'themeDetail',params:{id:this.$store.state.currentThemeId}})
       },
+      //对图片url进行转化
       attachImageUrl(srcUrl) {
         if(srcUrl !== undefined){
           return srcUrl.replace(/http\w{0,1}:\/\/p/g,'https://images.weserv.nl/?url=p')
         }
       },
+      //跳转主编个人主页路由
       goEditor(id,name) {
-          router.push({name:'editor',params:{id:id}});
-          this.$store.dispatch('addEditorId',{
-              id:id,
-              name:name
-          });
+        router.push({name:'editor',params:{id:id}});
+        this.$store.dispatch('addEditorId',{
+          id:id,
+          name:name
+        });
       }
     },
+    //注册组件
     components:{
-       sonheader
+      sonheader
     }
   }
 </script>

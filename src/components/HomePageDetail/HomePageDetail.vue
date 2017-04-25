@@ -14,109 +14,109 @@
   import router from '../../router'
 
   export default {
-      data() {
-        return {
-           date:Date,
-           datestr:''
+    data() {
+      return {
+        date:Date,
+        datestr:''
+      }
+    },
+    //生命周期开始创建数据观察
+    created() {
+      if(this.$store.state.isFirstLoad) {
+        this.fetchData();
+        this.$store.dispatch('changeFirstLoad')
+      }
+      this.initDate();
+      this.$on('refresh',() => {
+        this.refreshData();
+      })
+      this.$on('loadMore',() => {
+        this.loadMoreData();
+      })
+    },
+    methods:{
+      //下拉刷新回掉函数
+      refreshData() {
+        this.$store.dispatch('deleteData');
+        this.$nextTick(() => {
+          this.fetchData();
+        })
+      },
+      //上拉加载回掉函数
+      loadMoreData() {
+        this.$nextTick(() => {
+          this.fetchMoreDate();
+        })
+      },
+      //获取最新消息
+      fetchData() {
+        axios.get('api/news/latest').then((response) => {
+          let stories = response.data.stories;
+          let ids = stories.map(story => story.id)
+
+          this.$store.dispatch('addNews',{
+            stories:stories,
+            ids:ids
+          })
+          this.$store.dispatch('addAllNews',stories);
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
+      //转换图片url
+      attachImageUrl(srcUrl) {
+        if (srcUrl !== undefined) {
+          return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
         }
       },
-      //创建生命周期
-      created() {
-          if(this.$store.state.isFirstLoad) {
-            this.fetchData();
-            this.$store.dispatch('changeFirstLoad')
-          }
-          this.initDate();
-          this.$on('refresh',() => {
-              this.refreshData();
-          })
-          this.$on('loadMore',() => {
-              this.loadMoreData();
-          })
+      //获取第一次加载当前日期
+      initDate() {
+        this.date = new Date();
+        this.changeDateStr();
       },
-      methods:{
-          //下拉刷新回掉函数
-          refreshData() {
-            this.$store.dispatch('deleteData');
-            this.$nextTick(() => {
-                this.fetchData();
-            })
-          },
-          //上拉加载回掉函数
-          loadMoreData() {
-            this.$nextTick(() => {
-                this.fetchMoreDate();
-            })
-          },
-          //获取最新消息
-          fetchData() {
-            axios.get('api/news/latest').then((response) => {
-              let stories = response.data.stories;
-              let ids = stories.map(story => story.id)
+      //把日期改为字符串形式
+      changeDateStr() {
+        let year = this.date.getFullYear();
+        let month = this.date.getMonth();
+        let date = this.date.getDate();
+        month = month < 10 ? '0' + month : month;
+        date = date < 10 ? '0' + date : date;
 
-              this.$store.dispatch('addNews',{
-                stories:stories,
-                ids:ids
-              })
-              this.$store.dispatch('addAllNews',stories);
-            }).catch((error) => {
-                 console.log(error)
-            })
-          },
-          //转换图片url
-          attachImageUrl(srcUrl) {
-            if (srcUrl !== undefined) {
-              return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
-            }
-          },
-          //获取第一次加载当前日期
-          initDate() {
-            this.date = new Date();
-            this.changeDateStr();
-          },
-          //把日期改为字符串形式
-          changeDateStr() {
-            let year = this.date.getFullYear();
-            let month = this.date.getMonth();
-            let date = this.date.getDate();
-            month = month < 10 ? '0' + month : month;
-            date = date < 10 ? '0' + date : date;
+        this.datestr = year + month + date;
+      },
+      //将日期推前一天
+      decreaseDateStr() {
+        this.date.setDate(this.date.getDate() - 1);
+        this.changeDateStr();
+      },
+      //获取前一天的新闻
+      fetchMoreDate() {
+        axios.get('api/news/before/'+ this.datestr).then((response) => {
+          let stories = response.data.stories;
+          let ids = stories.map(story => story.id)
 
-            this.datestr = year + month + date;
-          },
-          //将日期推前一天
-          decreaseDateStr() {
-            this.date.setDate(this.date.getDate() - 1);
-            this.changeDateStr();
-          },
-          //获取前一天的新闻
-          fetchMoreDate() {
-            axios.get('api/news/before/'+ this.datestr).then((response) => {
-              let stories = response.data.stories;
-              let ids = stories.map(story => story.id)
+          this.$store.dispatch('addNews',{
+            stories:stories,
+            ids:ids
+          })
+        }).catch((error) => {
+          console.log(error)
+        })
 
-              this.$store.dispatch('addNews',{
-                stories:stories,
-                ids:ids
-              })
-            }).catch((error) => {
-              console.log(error)
-            })
-
-            this.decreaseDateStr();
-          },
-          //隐藏侧边栏，向上派发事件
-          hideSidebar() {
-              this.$emit('hideSidebar')
-          },
-          //去往详情页
-          goNew(id) {
-              this.$store.state.id = id;
-              router.push({ name:'newDetail', params:{ id:id }});
-              this.$store.dispatch('judgeCollectState');
-              this.$store.dispatch('changeGoType',1)
-          }
+        this.decreaseDateStr();
+      },
+      //隐藏侧边栏，向上派发事件
+      hideSidebar() {
+        this.$emit('hideSidebar')
+      },
+      //去往详情页
+      goNew(id) {
+        this.$store.state.id = id;
+        router.push({ name:'newDetail', params:{ id:id }});
+        this.$store.dispatch('judgeCollectState');
+        this.$store.dispatch('changeGoType',1)
       }
+    }
   }
 </script>
 

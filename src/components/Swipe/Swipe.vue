@@ -13,33 +13,37 @@
   import axios from 'axios'
   import router from '../../router'
   export default {
-      data() {
-        return {
-           data:[]
+    data() {
+      return {
+        data:[]                   //初始化滑动图数据
+      }
+    },
+    //生命周期创建观察数据
+    created() {
+      this.fetchData()
+    },
+    methods:{
+      //接收首页滑动图数据
+      fetchData() {
+        axios.get('api/news/latest').then((response) => {
+          this.data = response.data.top_stories;
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
+      //对图片url进行转化
+      attachImageUrl: function(srcUrl) {
+        if (srcUrl !== undefined) {
+          return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
         }
       },
-      created() {
-          this.fetchData()
-      },
-      methods:{
-          fetchData() {
-              axios.get('api/news/latest').then((response) => {
-                  this.data = response.data.top_stories;
-              }).catch((error) => {
-                  console.log(error)
-              })
-          },
-          attachImageUrl: function(srcUrl) {
-            if (srcUrl !== undefined) {
-              return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
-            }
-          },
-          goNew(id) {
-            this.$store.dispatch('addNewId',id);
-            router.push({ name:'newDetail', params:{ id:id }})
-            this.$store.dispatch('changeGoType',1)
-          }
+      //跳转对应新闻详情页路由
+      goNew(id) {
+        this.$store.dispatch('addNewId',id);
+        router.push({ name:'newDetail', params:{ id:id }})
+        this.$store.dispatch('changeGoType',1)
       }
+    }
   }
 </script>
 

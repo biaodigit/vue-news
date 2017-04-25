@@ -16,39 +16,39 @@
   export default {
     data() {
         return {
-           data:{},
+           data:{},                                 //初始化当前详情页数据
         }
-    },
-    //检测路由变化
-    watch: {
-      '$route'(to,form){
-          this.fetchData();
-      }
     },
     //创建生命周期
     created() {
       this.fetchData();
     },
+    //检测路由变化
+    watch: {
+      '$route'(to,form){
+        this.fetchData();
+      }
+    },
     methods:{
-        //获取详情页内容
-        fetchData() {
-            axios.get('api/news/'+ this.$store.state.id).then((response) => {
-                response.data.body = this.attachBodyContent(response.data.body)
-                this.data = response.data;
-            }).catch((error) => {
-                console.log(error)
-            })
-        },
-        //替换头部背景图片url
-        attachImageUrl(srcUrl) {
-            if(srcUrl !== undefined){
-                return srcUrl.replace(/http\w{0,1}:\/\/p/g,'https://images.weserv.nl/?url=p')
-            }
-        },
-        //替换详情内容图片url
-        attachBodyContent: function(body) {
-          return body.replace(/src="http\w{0,1}:\/\//g, 'src="https://images.weserv.nl/?url=');
+      //获取详情页内容
+      fetchData() {
+        axios.get('api/news/'+ this.$store.state.id).then((response) => {
+          response.data.body = this.attachBodyContent(response.data.body)
+          this.data = response.data;
+        }).catch((error) => {
+            console.log(error)
+        })
+      },
+      //替换头部背景图片url
+      attachImageUrl(srcUrl) {
+        if(srcUrl !== undefined){
+          return srcUrl.replace(/http\w{0,1}:\/\/p/g,'https://images.weserv.nl/?url=p')
         }
+      },
+      //替换详情内容图片url
+      attachBodyContent: function(body) {
+        return body.replace(/src="http\w{0,1}:\/\//g, 'src="https://images.weserv.nl/?url=');
+      }
     },
     //注册组件
     components:{

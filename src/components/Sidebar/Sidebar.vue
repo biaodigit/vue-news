@@ -52,78 +52,90 @@
   import BScroll from 'better-scroll';
   import router from '../../router/index';
   import collect from '../Collect/Collect.vue'
+
   export default {
+    //接收父组件传值
     props:{
-        sidebarShow:{
-            type:Boolean
-        },
-        currentIndex:{
-            type:Number,
-            default:-1
-        }
+      sidebarShow:{
+        type:Boolean
+      },
+      currentIndex:{
+        type:Number,
+        default:-1                    //当前高亮主题默认id
+      }
     },
     data() {
       return {
-          data:[],
-//          showCollect:false
+        data:[]                        //初始化主题列表数据
       }
     },
+    //生命周期创建观察数据
     created() {
       this.fetchData();
     },
+    //观察路由跳转更新数据
     watch:{
-        '$route'(to,form){
-            this.fetchData();
-        }
+      '$route'(to,form){
+        this.fetchData();
+      }
     },
     methods:{
-        hide() {
-          this.$emit('hideSidebar');
-        },
-        fetchData() {
-            axios.get('api/themes').then((response) => {
-                this.data = response.data.others;
-                this.data.unshift({
-                  color: 0,
-                  thumbnail: '',
-                  description: '首页',
-                  id: -1,
-                  name: '首页'
-                });
-                this.$nextTick(() => {
-                  this.themeScroll = new BScroll(this.$refs.themeWrapper,{
-                    click:true
-                  });
-                });
-            }).catch((error) => {
-                console.log('error');
-            })
-        },
-        goCollect() {
-          router.push({ name:'collect' })
-        },
-        goTheme(id) {
-            if(id == -1) {
-              this.hide();
-              router.push({name: 'homePage'});
-              this.$store.dispatch('changeGoType',1)
-              this.$store.dispatch('changeCurrentThemeId',id);
-            }else if(id == this.$route.params.id){
-              this.hide();
-            }else {
-              this.hide();
-              this.$store.dispatch('changeCurrentThemeId',id);
-              router.push({ name: 'themeDetail', params: { id: id } });
-            }
+      //隐藏侧边栏，向上派发事件
+      hide() {
+        this.$emit('hideSidebar');
+      },
+      //获取主题列表数据
+      fetchData() {
+        axios.get('api/themes').then((response) => {
+          this.data = response.data.others;
+
+          //由于改api中没有首页的数据，因此在data中添加首页
+          this.data.unshift({
+            color: 0,
+            thumbnail: '',
+            description: '首页',
+            id: -1,
+            name: '首页'
+          });
+
+          this.$nextTick(() => {
+            this.themeScroll = new BScroll(this.$refs.themeWrapper,{
+              click:true
+            });
+          });
+        }).catch((error) => {
+          console.log('error');
+        })
+      },
+      //跳转收藏页面路由
+      goCollect() {
+        router.push({ name:'collect' })
+      },
+      //跳转主题页面路由
+      goTheme(id) {
+        if(id == -1) {
+          this.hide();
+          router.push({name: 'homePage'});
+          this.$store.dispatch('changeGoType',1)
+          this.$store.dispatch('changeCurrentThemeId',id);
+        }else if(id == this.$route.params.id){
+          this.hide();
+        }else {
+          this.hide();
+          this.$store.dispatch('changeCurrentThemeId',id);
+          router.push({ name: 'themeDetail', params: { id: id } });
         }
+      }
     },
     computed: {
-        currentThemeId() {
-            return this.$store.state.currentThemeId;
-        }
+      //计算当前主题id
+      currentThemeId() {
+        return this.$store.state.currentThemeId;
+      }
     },
+    //注册组件
     components:{
-        collect
+      collect
     }
   }
 </script>

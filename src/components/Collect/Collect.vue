@@ -22,18 +22,13 @@
   export default {
     data() {
       return {
-         data:this.$store.state.isCollectNews,
-         sidebarShow:false,
-         title:'收藏'
+         data:this.$store.state.isCollectNews,           //已收藏新闻数组
+         sidebarShow:false,                                 //侧边栏显示状态
+         title:'收藏'                                        //收藏页面标题
       }
     },
-    created() {
-      this.fetchCollectData();
-    },
     methods:{
-      fetchCollectData() {
-
-      },
+      //返回上一页面，并判断是从哪里进入的
       back() {
         let id = this.$store.state.currentThemeId;
         if(this.$store.state.currentThemeId > 0){
@@ -42,11 +37,13 @@
             router.push({name:'homePage'})
         }
       },
+      //对图片url进行转化
       attachImageUrl(srcUrl) {
         if (srcUrl !== undefined) {
           return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
         }
       },
+      //去往收藏新闻详情页
       goNew(id) {
         this.$store.state.id = id;
         router.push({ name:'newDetail', params:{ id:id }});
@@ -55,6 +52,7 @@
         console.log(this.$store.state.currentThemeId)
       }
     },
+    //注册组件
     components:{
         sonheader
     }

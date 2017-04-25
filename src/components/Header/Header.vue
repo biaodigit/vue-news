@@ -6,16 +6,18 @@
 
 <script type="text/ecmascript-6">
   export default {
+    //接收从父组件传来的标题值
     props:{
-        title:{
-            type:String,
-            default:'今日热闻'
-        }
+      title:{
+        type:String,
+        default:'今日热闻'           //标题默认值
+      }
     },
     methods:{
-        showSidebar() {
-            this.$emit('showSide');
-        },
+      //显示侧边栏，向上派发事件
+      showSidebar() {
+        this.$emit('showSide');
+      },
     }
   };
 </script>

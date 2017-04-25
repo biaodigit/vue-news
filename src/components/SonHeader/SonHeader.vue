@@ -6,16 +6,18 @@
 
 <script type="text/ecmascript-6">
   export default {
-      props:{
-         title:{
-             type:String
-         }
-      },
-      methods:{
-         back() {
-            this.$emit('back')
-         }
+    //接收父组件传值
+    props:{
+      title:{
+        type:String
       }
+    },
+    methods:{
+      //向上触发返回事件
+      back() {
+        this.$emit('back')
+      }
+    }
   }
 </script>
 

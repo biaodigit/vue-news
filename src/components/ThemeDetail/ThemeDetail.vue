@@ -27,19 +27,22 @@
   export default {
     data() {
       return {
-        sidebarShow:false,
-        id:''
+        sidebarShow:false,         //侧边栏显示状态
+        id:''                        //当前主题id
       }
     },
+    //观察路由跳转更新数据
     watch:{
       '$route'(to,from){
           this.fetchData();
       }
     },
+    //生命周期创建数据观察
     created() {
       this.fetchData();
     },
     methods:{
+      //获取当前主题页面数据
       fetchData() {
           if(this.$store.state.currentThemeId != -1) {
             axios.get('api/theme/' + this.$store.state.currentThemeId).then((response) => {
@@ -53,23 +56,28 @@
           }
           this.id = this.$store.state.currentThemeId;
       },
+      //显示侧边栏，在其显示时访问他的获取数据方法，从而使better-scroll能够计算出中间主题列表高度
       show() {
         this.sidebarShow = true;
         if(this.sidebarShow){
           this.$refs.sidebar.fetchData();
         }
       },
+      //隐藏侧边栏
       hide() {
         this.sidebarShow = false;
       },
+      //对图片url进行转换
       attachImageUrl(srcUrl) {
          if(srcUrl !== undefined){
              return srcUrl.replace(/http\w{0,1}:\/\/p/g,'https://images.weserv.nl/?url=p')
          }
       },
+      //跳转主编列表路由
       showEditors(id) {
           router.push({ name:'editorsList',params:{id:id}})
       },
+      //前往主题新闻详情页
       goNew(id) {
         this.$store.state.id = id;
         router.push({ name:'newDetail', params:{ id:id }});
@@ -78,13 +86,16 @@
       }
     },
     computed: {
+      //获取当前主题id
       currentThemeId() {
         return this.$store.state.currentThemeId;
       },
+      //获取当前主题标题
       themeTitle() {
          return this.$store.state.currentTheme.name
       }
     },
+    //注册组件
     components:{
       'v-header':header,
       sidebar
@@ -98,7 +109,7 @@
   .editors
     position relative
     top 40px
-    width 90%
+    width 92%
     height 40px
     line-height 40px
     border-1px(rgba(7,17,27,0.1))
@@ -121,7 +132,6 @@
     top 40px
     width 100%
     height 100%
-    padding-right -10%
     .new
       display flex
       position relative

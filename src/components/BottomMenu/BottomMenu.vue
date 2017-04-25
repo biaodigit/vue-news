@@ -41,16 +41,11 @@
   export default {
     data() {
       return {
-        thumb:false,
-        shareshow:false,
-        collect:false,
+        thumb:false,                         //点赞状态
+        shareshow:false,                    //分享栏状态
       }
     },
-    watch:{
-      '$route'(to,from){
-          this.fetchExtraData();
-      }
-    },
+    //生命周期创建进行数据观察
     created() {
       this.fetchExtraData();
       this.data = [
@@ -96,7 +91,14 @@
         }
       ]
     },
+    //观察路由跳转数据更新
+    watch:{
+      '$route'(to,from){
+        this.fetchExtraData();
+      }
+    },
     methods:{
+      //获取新闻
       fetchExtraData() {
         let id = this.$store.state.id;
         axios.get('api/story-extra/' + this.$store.state.id).then(response => {
@@ -115,6 +117,7 @@
             console.log(error);
           });
       },
+      //返回上一级路由，判断是从哪里进入
       goBack() {
         if(this.$store.state.goType == 1){
             router.push({ name:'homePage'})
@@ -124,8 +127,8 @@
         }else if(this.$store.state.goType == 3){
             router.push({ name:'themeDetail',params:{id:this.$store.state.currentThemeId}});
         };
-        console.log(this.$store.state.isCollectIds);
       },
+      //点赞
       thumbUp() {
         this.thumb = !this.thumb;
         if(this.thumb){
@@ -134,30 +137,36 @@
             this.$store.state.popularity--;
         }
       },
+      //显示分享栏
       showShare() {
         this.shareshow = !this.shareshow
       },
+      //隐藏分享栏
       hideShare() {
         this.shareshow = !this.shareshow
       },
+      //改变收藏状态
       changeCollect(){
         this.$store.dispatch('changeCollectState')
       },
+      //跳转评论路由页面
       goComments(id){
           router.push({ name:'comments',params:{id:id}})
       }
     },
     computed:{
-       thumbs() {
-           if(this.thumb){
-              return require('./thumbups.png');
-           }else{
-              return require('./thumbup.png');
-           }
-       },
-       newId(){
-         return this.$store.state.id;
-       }
+      //计算点赞状态
+      thumbs() {
+        if(this.thumb){
+          return require('./thumbups.png');
+        }else{
+          return require('./thumbup.png');
+        }
+      },
+      //返回当前新闻详情页id
+      newId(){
+        return this.$store.state.id;
+      }
     }
   }
 </script>
