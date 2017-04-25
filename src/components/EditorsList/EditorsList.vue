@@ -62,28 +62,28 @@
       padding-left 0
       .editor
         display flex
-        height 55px
+        height 60px
         border-1px(rgba(7,17,27,0.1))
         .avatar
           flex 0 0 25px
-          height 55px
-          line-height 55px
+          height 60px
+          line-height 60px
           padding-left 10px
           margin-right 15px
           img
             border-radius 50%
         .description
           flex 1
-          height 55px
+          height 60px
           .name
-            font-size 16px
+            font-size 14px
             margin-top 10px
           .bio
-            font-size 12px
-            margin-top 10px
+            font-size 11px
+            margin-top 8px
             color rgb(153,153,153)
         .arrow_right
           flex 0 0 25px
-          line-height 55px
+          line-height 60px
           padding-right 10px
 </style>
