@@ -7,6 +7,14 @@
       <div class="avatar" v-for="editor in this.$store.state.currentTheme.editors"><img :src="attachImageUrl(editor.avatar)" width="25" height="25"></div>
       <span class="arrow_right"><img src="./arrow_right.png" width="15" height="15"></span>
     </div>
+    <div class="themeNewList">
+      <ul>
+        <li v-for="story in this.$store.state.currentTheme.stories" :key="story.id" class="new border-1px" @click="goNew(story.id)">
+          <span class="title">{{story.title}}</span>
+          <span class="avatar" v-for="(item,index) in story.images" v-if="index<1"><img v-lazy="attachImageUrl(item)"></span>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -102,4 +110,30 @@
       right 30px
       padding 0 10px
 
+  .themeNewList
+    position relative
+    top 40px
+    width 100%
+    height 100%
+    .new
+      display flex
+      position relative
+      left -15px
+      padding 20px 0 20px 10px
+      border-1px(rgba(7,17,27,0.1))
+      .title
+        flex 1
+        margin-right 10px
+        line-height 20px
+      .avatar
+        flex 0 0 70px
+        width 70px
+        height 55px
+        img
+          width 70px
+          height 55px
+          img[lazy=loading]
+            height 55px
+            width 70px
+            margin auto
 </style>
