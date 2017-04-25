@@ -1,5 +1,5 @@
 <template>
-  <div class="themedetail">
+  <div class="themeDetail">
     <v-header @showSide="show" :title="themeTitle"></v-header>
     <sidebar :sidebarShow="sidebarShow" @hideSidebar="hide" ref="sidebar"></sidebar>
     <div class="editors border-1px" @click="showEditors(id)">
@@ -44,7 +44,7 @@
           if(this.$store.state.currentThemeId != -1) {
             axios.get('api/theme/' + this.$store.state.currentThemeId).then((response) => {
               let theme = response.data
-
+              let stories = theme.stories;
               this.$store.dispatch('addTheme',theme)
             }).catch((error) => {
               console.log(error)
@@ -68,6 +68,12 @@
       },
       showEditors(id) {
           router.push({ name:'editorsList',params:{id:id}})
+      },
+      goNew(id) {
+        this.$store.state.id = id;
+        router.push({ name:'newDetail', params:{ id:id }});
+        this.$store.dispatch('judgeCollectState');
+        this.$store.dispatch('changeGoType',3)
       }
     },
     computed: {
@@ -88,11 +94,10 @@
 <style lang="stylus" rel="stylesheet/stylus">
  @import "../../common/stylus/index.styl"
 
-
   .editors
     position relative
     top 40px
-    width 100%
+    width 90%
     height 40px
     line-height 40px
     border-1px(rgba(7,17,27,0.1))
@@ -107,7 +112,7 @@
         border-radius 50%
     .arrow_right
       position absolute
-      right 30px
+      right 10px
       padding 0 10px
 
   .themeNewList
@@ -115,6 +120,7 @@
     top 40px
     width 100%
     height 100%
+    padding-right -10%
     .new
       display flex
       position relative

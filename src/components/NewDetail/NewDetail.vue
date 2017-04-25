@@ -1,7 +1,7 @@
 <template>
     <div class="newDetail">
       <div class="content-wrapper">
-        <div class="bg-image"><img :src="attachImageUrl(data.image)" v-lazy="attachImageUrl(data.image)"><span class="title">{{data.title}}</span></div>
+        <div class="bg-image" v-if="data.image"><img :src="attachImageUrl(data.image)" v-lazy="attachImageUrl(data.image)"><span class="title">{{data.title}}</span></div>
         <div class="body" v-html="data.body"></div>
       </div>
       <bottommenu></bottommenu>
@@ -63,27 +63,23 @@
   .newDetail
     width 100%
     z-index 10
-    .content-wrapper
+    .bg-image
       position relative
-      top 0
-      left 0
-      bottom 44px
-      margin-bottom 20px
       width 100%
-      .bg-image
+      height  250px
+      z-index -1
+      .title
+        position absolute
+        bottom 0
+        font-size 18px
+        padding 0 10px 10px 15px
+        color rgb(255,255,255)
+      img
+        position absolute
         width 100%
         height 250px
-        z-index -1
-        .title
-          position relative
-          bottom 50px
-          font-size 18px
-          text-align center
-          padding 0 15px
-          color rgb(255,255,255)
-        img
-          width 100%
-          height 250px
-
+    .body
+      position absolute
+      width 100%
 
 </style>

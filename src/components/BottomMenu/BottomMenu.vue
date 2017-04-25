@@ -124,6 +124,7 @@
         }else if(this.$store.state.goType == 3){
             router.push({ name:'themeDetail',params:{id:this.$store.state.currentThemeId}});
         };
+        console.log(this.$store.state.isCollectIds);
       },
       thumbUp() {
         this.thumb = !this.thumb;

@@ -48,6 +48,7 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .content
     position relative
-    top 40px
+    top 30px
+    margin 0
 
 </style>

@@ -27,7 +27,13 @@
          title:'收藏'
       }
     },
+    created() {
+      this.fetchCollectData();
+    },
     methods:{
+      fetchCollectData() {
+
+      },
       back() {
         let id = this.$store.state.currentThemeId;
         if(this.$store.state.currentThemeId > 0){
