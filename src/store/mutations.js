@@ -41,7 +41,7 @@ export default {
     if(index < 0){
         state.isCollect = true;
         state.isCollectIds.push(state.id);
-        state.stories.forEach((story) => {
+        state.allStories.forEach((story) => {
           if(story.id == state.id){
             state.isCollectNews.push(story);
           }
@@ -60,5 +60,8 @@ export default {
   },
   [types.ADD_EDITOR_ID](state,payload){
     state.editor = payload;
+  },
+  [types.ADD_ALL_NEWS](state,stories){
+    state.allStories = state.allStories.concat(stories)
   }
 }

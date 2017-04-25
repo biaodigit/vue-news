@@ -5,6 +5,7 @@ export default {
   currentThemeId:-1,  //当前主题id
   isFirstLoad:true,   //第一次进入主页
   stories:[],          //当前新闻数组
+  allStories:[],      //全部已加载新闻数组
   ids:[],              //当前新闻数组id
   id:'',               //当前新闻id
   new:[],              //当前新闻详情页内容

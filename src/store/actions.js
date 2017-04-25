@@ -39,5 +39,8 @@ export default {
   },
   addEditorId:({commit},payload) => {
     commit(types.ADD_EDITOR_ID,payload)
+  },
+  addAllNews:({commit},stories) => {
+    commit(types.ADD_ALL_NEWS,stories)
   }
 }

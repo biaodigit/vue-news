@@ -1,7 +1,7 @@
 <template>
     <div class="newDetail">
       <div class="content-wrapper">
-        <div class="bg-image" v-if="data.image"><img :src="attachImageUrl(data.image)" v-lazy="attachImageUrl(data.image)"><span class="title">{{data.title}}</span></div>
+        <div class="bg-image"  v-if="data.image"><img :src="attachImageUrl(data.image)" v-lazy="attachImageUrl(data.image)"><span class="title">{{data.title}}</span></div>
         <div class="body" v-html="data.body"></div>
       </div>
       <bottommenu></bottommenu>

@@ -46,6 +46,7 @@
               let theme = response.data
               let stories = theme.stories;
               this.$store.dispatch('addTheme',theme)
+              this.$store.dispatch('addAllNews',stories);
             }).catch((error) => {
               console.log(error)
             });

@@ -58,6 +58,7 @@
                 stories:stories,
                 ids:ids
               })
+              this.$store.dispatch('addAllNews',stories);
             }).catch((error) => {
                  console.log(error)
             })
