@@ -8,7 +8,7 @@
 >『知乎』是 知乎. Inc 的注册商标。本软件与其代码非由知乎创作或维护。软件中所包含的信息与内容皆违反版权与知乎用户协议。本项目所有文字图片等稿件内容均由[知乎](https://www.zhihu.com)提供，获取与共享之行为或有侵犯知乎权益的嫌疑。若被告知需停止共享与使用，本人会及时删除整个项目。请您了解相关情况，并遵守知乎协议。
 
 ## 项目起源
-从二月份开始学习[vue](https://cn.vuejs.org/)学习了一个半月后去跟着滴滴黄轶老师学习他的[Vue.js高仿饿了么外卖App课程](http://coding.imooc.com/class/74.html),做完后收获颇丰，对vue的实际项目应用有了基本的了解,同时也学习到了移动端布局，例如flex,1px边框,正方形背景图等等,做完整个课程后决定自己再去做一个小东西去加深巩固vue知识数,因此又花了数天去阅读[vuex文档](https://vuex.vuejs.org/zh-cn/),[vue-router文档](https://router.vuejs.org/zh-cn/),[axios](https://github.com/mzabriskie/axios),以及饿了么前端团队开发的[mint-ui](http://mint-ui.github.io/#!/zh-cn),最后在[博哥](https://github.com/cccyb)的推荐下选择了仿知乎日报作为独立demo的prototype,原因吗很简单，标准的单页面应用，没有太多复杂的交互效果，以及现成的[api接口](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90),然后,就开工啦！
+从二月份开始学习[vue](https://cn.vuejs.org/)学习了一个半月后去跟着[滴滴黄轶老师](https://github.com/ustbhuangyi)学习他的[Vue.js高仿饿了么外卖App课程](http://coding.imooc.com/class/74.html),做完后收获颇丰，对vue的实际项目应用有了基本的了解,同时也学习到了移动端布局，例如flex,1px边框,正方形背景图等等,做完整个课程后决定自己再去做一个小东西去加深巩固vue知识数,因此又花了数天去阅读[vuex文档](https://vuex.vuejs.org/zh-cn/),[vue-router文档](https://router.vuejs.org/zh-cn/),[axios](https://github.com/mzabriskie/axios),以及饿了么前端团队开发的[mint-ui](http://mint-ui.github.io/#!/zh-cn),最后在[博哥](https://github.com/cccyb)的推荐下选择了仿知乎日报作为独立demo的prototype,原因吗很简单，标准的单页面应用，没有太多复杂的交互效果，以及现成的[api接口](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90),然后,就开工啦！
 
 ## 技术栈
 
@@ -16,7 +16,7 @@
 
 ## demo预览地址
 
-[点击预览](待定)
+(正在等域名备案审批下来,各位客观耐心等候)
 
 PC端建议在chrome浏览器的移动端模式下浏览
  
