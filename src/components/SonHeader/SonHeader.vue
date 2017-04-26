@@ -1,6 +1,6 @@
 <template>
   <div class="sonHeader">
-    <span class="back" @click="back "><img src="./back.png" width="20" height="20"></span><h3>{{title}}</h3>
+    <span class="back" @click="back "><i class="icon iconfont icon-back"></i></span><h3>{{title}}</h3>
   </div>
 </template>
 
@@ -22,6 +22,8 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  @import "../../common/stylus/iconfont.css"
+
   .sonHeader
     position fixed
     width 100%
@@ -37,4 +39,11 @@
       position absolute
       left 10px
       bottom 2px
+      height 40px
+      .iconfont
+        position relative
+        line-height 40px
+        top 3px
+        font-size 22px
+        color rgb(255,255,255)
 </style>

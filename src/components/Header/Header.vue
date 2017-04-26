@@ -44,6 +44,7 @@
       top 10px
       width 20px
       height 20px
+      font-size 0
       left 10px
       padding 5px
       bg-image('navigation')

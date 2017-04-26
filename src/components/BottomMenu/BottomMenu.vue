@@ -1,25 +1,57 @@
 <template>
   <div class="bottomMenu">
-    <div class="menu" @click="goBack"><img src="./back.png" width="25" height="25"></div>
-    <div class="menu"><img src="./next.png" width="25" height="25"></div>
-    <div class="menu" @click="thumbUp"><img :src="thumbs" width="25" height="25"><span class="extra">{{this.$store.state.popularity}}</span></div>
-    <div class="menu" @click="showShare"><img src="./share.png" width="25" height="25"></div>
-    <div class="menu" @click="goComments(newId)"><img src="./common.png" width="25" height="25"><span class="extra" v-if="this.$store.state.comments != 0">{{this.$store.state.comments}}</span></div>
+    <div class="menu" @click="goBack"><i class="icon iconfont icon-back"></i></div>
+    <div class="menu"><i class="icon iconfont icon-moreunfold"></i></div>
+    <div class="menu" :class="{'isThumbUp':thumb}"  @click="thumbUp"><i class="icon iconfont icon-dianzan"></i><span class="extra">{{this.$store.state.popularity}}</span></div>
+    <div class="menu" @click="showShare"><i class="icon iconfont icon-fenxiang"></i></div>
+    <div class="menu" @click="goComments(newId)"><i class="icon iconfont icon-pinglun"></i><span class="extra" v-if="this.$store.state.comments != 0">{{this.$store.state.comments}}</span></div>
     <transition name="fold">
       <div class="share" v-show="shareshow">
         <div class="title">分享这篇内容</div>
         <div class="shareMenus">
-          <mt-swipe :auto="0" style="height: 225px;">
+          <mt-swipe :auto="0" style="height: 200px;">
             <mt-swipe-item>
-              <div class="shareMenu" v-for="(item,index) in data" v-if="index<8">
-                <span class="avatar"><img :src="item.avatar"></span>
-                <span class="name">{{item.name}}</span>
+              <div class="shareMenu">
+                <i class="icon iconfont icon-weixinhaoyou"></i><br>
+                <span class="name">微信好友</span>
+              </div>
+              <div class="shareMenu">
+                <i class="icon iconfont icon-weixinpengyouquan"></i><br>
+                <span class="name">微信朋友圈</span>
+              </div>
+              <div class="shareMenu">
+                <i class="icon iconfont icon-QQ"></i><br>
+                <span class="name">QQ</span>
+              </div>
+              <div class="shareMenu">
+                <i class="icon iconfont icon-weibo"></i><br>
+                <span class="name">新浪微博</span>
+              </div>
+              <div class="shareMenu">
+                <i class="icon iconfont icon-fuzhi"></i><br>
+                <span class="name">复制链接</span>
+              </div>
+              <div class="shareMenu">
+                <i class="icon iconfont icon-youdaoyunbiji"></i><br>
+                <span class="name">有道云笔记</span>
+              </div>
+              <div class="shareMenu">
+                <i class="icon iconfont icon-yinxiangbiji"></i><br>
+                <span class="name">印象笔记</span>
+              </div>
+              <div class="shareMenu">
+                <i class="icon iconfont icon-tengxunweibo"></i><br>
+                <span class="name">腾讯微博</span>
               </div>
             </mt-swipe-item>
             <mt-swipe-item>
-              <div class="shareMenu" v-for="(item,index) in data" v-if="index>7">
-                <span class="avatar"><img :src="item.avatar"></span>
-                <span class="name">{{item.name}}</span>
+              <div class="shareMenu">
+                <i class="icon iconfont icon-xinxi"></i><br>
+                <span class="name">信息</span>
+              </div>
+              <div class="shareMenu">
+                <i class="icon iconfont icon-instapaper"></i><br>
+                <span class="name">Instapaper</span>
               </div>
             </mt-swipe-item>
           </mt-swipe>
@@ -48,48 +80,6 @@
     //生命周期创建进行数据观察
     created() {
       this.fetchExtraData();
-      this.data = [
-        {
-          name:'微信好友',
-          avatar:require('./weixin.png')
-        },
-        {
-          name:'微信朋友圈',
-          avatar:require('./pengyouquan.png')
-        },
-        {
-          name:'QQ',
-          avatar:require('./qq.png')
-        },
-        {
-          name:'新浪微博',
-          avatar:require('./weibo.png')
-        },
-        {
-          name:'复制链接',
-          avatar:require('./copy.png')
-        },
-        {
-          name:'有道云笔记',
-          avatar:require('./biji.png')
-        },
-        {
-          name:'印象笔记',
-          avatar:require('./yinxiang.png')
-        },
-        {
-          name:'腾讯微博',
-          avatar:require('./tencent.png')
-        },
-        {
-          name:'信息',
-          avatar:require('./new.png')
-        },
-        {
-          name:'Instapaper',
-          avatar:require('./instapaper.png')
-        }
-      ]
     },
     //观察路由跳转数据更新
     watch:{
@@ -155,14 +145,6 @@
       }
     },
     computed:{
-      //计算点赞状态
-      thumbs() {
-        if(this.thumb){
-          return require('./thumbups.png');
-        }else{
-          return require('./thumbup.png');
-        }
-      },
       //返回当前新闻详情页id
       newId(){
         return this.$store.state.id;
@@ -173,6 +155,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/index.styl";
+  @import "../../common/stylus/iconfont.css"
 
   .bottomMenu
     position fixed
@@ -187,8 +170,12 @@
       line-height 44px
       font-size 30px
       text-align center
-      color rgba(7,17,27,0.3)
-      margin -bottom 5px
+      color rgba(7,17,27,0.4)
+      margin-bottom 5px
+      &.isThumbUp
+        color deepskyblue
+      .iconfont
+        font-size 25px
       img
         position relative
         bottom 3px
@@ -218,20 +205,51 @@
         font-size 17px
         padding-top 10px
       .shareMenus
+        position relative
+        top 5px
         width 100%
+        font-size 0
         .shareMenu
           display inline-block
           padding-top 15px
           z-index 50
           width 25%
+          margin-bottom 30px
           text-align center
-          .avatar
-            margin 0 5px 15px 0
+          i
+            font-size 25px
+            padding 10px
+            border-radius 50%
+            color #ffffff
+            &.icon-weixinhaoyou
+              background: #64c654
+            &.icon-weixinpengyouquan
+              background: #75cd37
+            &.icon-QQ
+              background: #286bc4
+            &.icon-weibo
+              background: #ec4226
+            &.icon-fuzhi
+              background: #dd472c
+            &.icon-youdaoyunbiji
+              background: #38a3ea
+            &.icon-yinxiangbiji
+              background: #5db346
+            &.icon-tengxunweibo
+              background: #3ea1d9
+            &.icon-xinxi
+              background: #4fe54e;
+            &.icon-instapaper
+              background: #6c6c6c;
+
+
           .name
+            display block
             position relative
-            top 7px
+            top 20px
+            font-size 18px
             text-align center
-            margin-left 6px
+
 
       .button
         position relative

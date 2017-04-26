@@ -5,7 +5,7 @@
         <div class="user">
         <div class="avatar"></div>
         <div class="username">哈哈哈蜜瓜</div>
-        <div class="back" @click="hide"><img src="./back.png" width="20" height="20"></div>
+        <div class="back" @click="hide"><img src="./back.png" width="22" height="22"></div>
       </div>
         <div class="menu-list">
           <div class="menu" @click="goCollect">
@@ -13,29 +13,29 @@
             <div class="name">收藏</div>
           </div>
           <div class="menu">
-            <div class="avatar"><img src="./news.png" width="20" height="20"></div>
+            <div class="avatar"><i class="icon iconfont icon-xiaoxi"></i></div>
             <div class="name">消息</div>
           </div>
           <div class="menu">
-            <div class="avatar"><img src="./set.png" width="20" height="20"></div>
+            <div class="avatar"><i class="icon iconfont icon-shezhi"></i></div>
             <div class="name">设置</div>
           </div>
       </div>
         <div class="themes-list" ref="themeWrapper">
         <ul style="padding-left: 0">
           <li class="themes" v-for="item in data" @click="goTheme(item.id)" :class="{'current':currentThemeId===item.id}">
-            <div class="icons" v-if="item.id == -1"><img src="./home.png" width="20" height="20"></div>
+            <div class="icons" v-if="item.id == -1"><i class="icon iconfont icon-shouyeshouye"></i></div>
             <div class="themetitle">{{item.name}}</div>
           </li>
         </ul>
       </div>
         <div class="bottom-menu">
           <div class="menu">
-            <div class="avatar"><img src="./set.png" width="20" height="20"></div>
+            <div class="avatar"><i class="icon iconfont icon-lixianwenjian"></i></div>
             <div class="name">离线</div>
           </div>
           <div class="menu">
-            <div class="avatar"><img src="./nightoff.png" width="20" height="20"></div>
+            <div class="avatar"><i class="icon iconfont icon-yejianmoshi"></i></div>
             <div class="name">夜间</div>
           </div>
         </div>
@@ -141,7 +141,8 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import '../../common/stylus/mixin.styl'
+  @import '../../common/stylus/index.styl'
+  @import "../../common/stylus/iconfont.css"
 
   .sidebar
     position fixed
@@ -180,6 +181,13 @@
         position relative
         top 10px
         left 60px
+        width 30px
+        height 30px
+        .fa-3x
+          width 30px
+          height 30px
+          font-size 20px
+          color #bfbfbf
     .menu-list
       display flex
       padding 10px 20px 10px 10px
@@ -188,6 +196,9 @@
         text-align center
         .avatar
           margin-bottom 5px
+          .iconfont
+            color rgb(148,153,157)
+            font-size 20px
         .name
           color rgb(148,153,157)
     .themes-list
@@ -224,6 +235,9 @@
         padding-top 5px
         .avatar
           margin-bottom 5px
+          .iconfont
+            color rgb(148,153,157)
+            font-size 20px
         .name
           color rgb(148,153,157)
   .mask
