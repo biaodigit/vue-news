@@ -4,20 +4,20 @@
 
 > 如果觉得做得还不错 , 或者项目源码对您有帮助 , 希望您小抬右手到右上角点一个star , 您的支持是作者长期更新维护的动力^_^
 
-##项目起源
+## 项目起源
 从二月份开始学习[vue](https://cn.vuejs.org/)学习了一个半月后去跟着滴滴黄轶老师学习他的[Vue.js高仿饿了么外卖App课程](http://coding.imooc.com/class/74.html),做完后收获颇丰，对vue的实际项目应用有了基本的了解,同时也学习到了移动端布局，例如flex,1px边框,正方形背景图等等,做完整个课程后决定自己再去做一个小东西去加深巩固vue知识数,因此又花了数天去阅读[vuex文档](https://vuex.vuejs.org/zh-cn/),[vue-router文档](https://router.vuejs.org/zh-cn/),[axios](https://github.com/mzabriskie/axios),以及饿了么前端团队开发的[mint-ui](http://mint-ui.github.io/#!/zh-cn),最后在[博哥](https://github.com/cccyb)的推荐下选择了仿知乎日报作为独立demo的prototype,原因吗很简单，标准的单页面应用，没有太多复杂的交互效果，以及现成的[api接口](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90),然后,就开工啦！
 
 ## 技术栈
 
 > vue2+vue-router+vuex+axios+better-scroll+mint-ui+stylus
 
-##demo预览地址
+## demo预览地址
 
 [点击预览](待定)
 
 PC端建议在chrome浏览器的移动端模式下浏览
  
-##功能
+## 功能
 
 - [x] 首页
 - [x] 首页滑动图
@@ -36,29 +36,29 @@ PC端建议在chrome浏览器的移动端模式下浏览
 - [x] 查看主题主编列表
 - [x] 查看主题主编个人主页
 
-##截图
-###首页
+## 截图
+### 首页
 ![homepage.gif](./demogif/homepage.gif)
 
-###新闻详情页
+### 新闻详情页
 ![newdetail.gif](./demogif/newdetail.gif)
 
-###评论页
+### 评论页
 ![comments.gif](./demogif/comments.gif)
 
-###收藏页
+### 收藏页
 ![collect.gif](./demogif/collect.gif)
 
-###主题页
+### 主题页
 ![themedetail.gif](./demogif/themedetail.gif)
 
-###主题主编列表页
+### 主题主编列表页
 ![editorlist](./demogif/editorlist.gif)
 
-###主题主编个人主页
+### 主题主编个人主页
 ![editor.gif](./demogif/editor.gif)
 
-##存在的bug
+## 存在的bug
 - [ ] 下拉刷新时会出现空白
 - [ ] 收藏路由过渡动画生硬,且动画只执行了一半
 - [ ] 新闻详情页过渡动画出现加载数据量大回退卡顿【此交互已取消,日后或采用weex解决】
@@ -80,8 +80,8 @@ PC端建议在chrome浏览器的移动端模式下浏览
 - [ ] 手势滑动切换路由页面
 - [ ] 解决上述bug
 
-##总结
-###知乎接口跨域问题(在此感谢[yatecssss](http://www.yatessss.com/2016/07/08/%E4%BD%BF%E7%94%A8vue%E5%AE%8C%E6%88%90%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5web%E7%89%88.html)前辈做出的贡献)
+## 总结
+### 知乎接口跨域问题(在此感谢[yatecssss](http://www.yatessss.com/2016/07/08/%E4%BD%BF%E7%94%A8vue%E5%AE%8C%E6%88%90%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5web%E7%89%88.html)前辈做出的贡献)
 调用知乎API时遇到了跨域问题，但是知乎的接口好像不支持jsonp，谷歌一波发现可以使用vue-cli自带的config的proxyTable文件配置进行解决，配置非常简单：
 	
 ```js
@@ -98,7 +98,7 @@ proxyTable: {
 此时请求`api/xxx`将会代理成`http://news-at.zhihu.com/api/4/xxx`
 这样就不会有跨域问题了，当然这只适用于开发环境。
 
-###图片防盗链问题
+### 图片防盗链问题
 知乎API返回的数据中的图片都是存储在知乎服务器上的url地址，直接请求会返回403，所以需要进行一些处理，这里我采用了[yatessss](https://github.com/yatessss)同学在[使用vue完成知乎日报web版](http://www.yatessss.com/2016/07/08/%E4%BD%BF%E7%94%A8vue%E5%AE%8C%E6%88%90%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5web%E7%89%88.html)的解决方案，使用[Images.weserv.nl](https://images.weserv.nl)进行缓存图片，并在需要使用图片url的地方进行相应的替换。
 
 ```js
