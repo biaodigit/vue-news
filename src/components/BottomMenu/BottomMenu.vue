@@ -84,7 +84,7 @@
     //观察路由跳转数据更新
     watch:{
       '$route'(to,from){
-        this.reloadId();
+        this.fetchExtraData();
       }
     },
     methods:{
@@ -145,15 +145,10 @@
           router.push({ name:'comments',params:{id:id}})
       },
       //加载下一篇新闻
-      goNext() {
-        let id = this.$store.state.nextId
-        router.push({ name:'newDetail', params:{ id:this.$store.state.nextId }});
+      goNext(){
+        let id = this.$store.state.nextId;
+        router.push({ name:'newDetail', params:{ id:id}});
         this.$store.dispatch('addNextId',id);
-        console.log(this.$store.state.nextId)
-      },
-      reloadId() {
-        this.$emit('reloadId');
-        this.fetchExtraData();
       }
     },
     computed:{

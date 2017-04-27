@@ -77,6 +77,6 @@ export default {
   [types.ADD_NEXT_ID](state,id){
     state.id = id;
     let index = state.ids.indexOf(id);
-    state.nextId = state.ids[++index];
+    state.nextId = state.ids[index+1];
   }
 }
