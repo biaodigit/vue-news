@@ -62,6 +62,7 @@
         }).catch((error) => {
           console.log(error)
         })
+        console.log(this.$store.state.ids)
       },
       //转换图片url
       attachImageUrl(srcUrl) {
@@ -114,7 +115,7 @@
         this.$store.state.id = id;
         router.push({ name:'newDetail', params:{ id:id }});
         this.$store.dispatch('judgeCollectState');
-        this.$store.dispatch('changeGoType',1)
+        this.$store.dispatch('changeGoType',1);
       }
     }
   }

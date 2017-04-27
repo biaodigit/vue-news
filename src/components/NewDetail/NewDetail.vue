@@ -4,7 +4,7 @@
         <div class="bg-image"  v-if="data.image"><img :src="attachImageUrl(data.image)" v-lazy="attachImageUrl(data.image)"><span class="title">{{data.title}}</span></div>
         <div class="body" v-html="data.body"></div>
       </div>
-      <bottommenu></bottommenu>
+      <bottommenu @reloadId="fetchData"></bottommenu>
     </div>
 </template>
 
@@ -37,7 +37,9 @@
           this.data = response.data;
         }).catch((error) => {
             console.log(error)
-        })
+        });
+
+        this.$store.dispatch('addNextId',this.$store.state.id)
       },
       //替换头部背景图片url
       attachImageUrl(srcUrl) {

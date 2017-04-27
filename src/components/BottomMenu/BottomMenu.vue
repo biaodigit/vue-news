@@ -1,7 +1,7 @@
 <template>
   <div class="bottomMenu">
     <div class="menu" @click="goBack"><i class="icon iconfont icon-back"></i></div>
-    <div class="menu"><i class="icon iconfont icon-moreunfold"></i></div>
+    <div class="menu" @click="goNext"><i class="icon iconfont icon-moreunfold"></i></div>
     <div class="menu" :class="{'isThumbUp':thumb}"  @click="thumbUp"><i class="icon iconfont icon-dianzan"></i><span class="extra">{{this.$store.state.popularity}}</span></div>
     <div class="menu" @click="showShare"><i class="icon iconfont icon-fenxiang"></i></div>
     <div class="menu" @click="goComments(newId)"><i class="icon iconfont icon-pinglun"></i><span class="extra" v-if="this.$store.state.comments != 0">{{this.$store.state.comments}}</span></div>
@@ -84,7 +84,7 @@
     //观察路由跳转数据更新
     watch:{
       '$route'(to,from){
-        this.fetchExtraData();
+        this.reloadId();
       }
     },
     methods:{
@@ -117,6 +117,7 @@
         }else if(this.$store.state.goType == 3){
             router.push({ name:'themeDetail',params:{id:this.$store.state.currentThemeId}});
         };
+        console.log(this.$store.state.ids)
       },
       //点赞
       thumbUp() {
@@ -142,6 +143,17 @@
       //跳转评论路由页面
       goComments(id){
           router.push({ name:'comments',params:{id:id}})
+      },
+      //加载下一篇新闻
+      goNext() {
+        let id = this.$store.state.nextId
+        router.push({ name:'newDetail', params:{ id:this.$store.state.nextId }});
+        this.$store.dispatch('addNextId',id);
+        console.log(this.$store.state.nextId)
+      },
+      reloadId() {
+        this.$emit('reloadId');
+        this.fetchExtraData();
       }
     },
     computed:{
@@ -160,7 +172,7 @@
   .bottomMenu
     position fixed
     display flex
-    bottom 0
+    bottom -1px
     height 44px
     width 100%
     background-color rgb(255,255,255)

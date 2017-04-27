@@ -72,5 +72,11 @@ export default {
   //增加全部加载过的新闻到数组
   [types.ADD_ALL_NEWS](state,stories){
     state.allStories = state.allStories.concat(stories)
+  },
+  //添加下一篇新闻id
+  [types.ADD_NEXT_ID](state,id){
+    state.id = id;
+    let index = state.ids.indexOf(id);
+    state.nextId = state.ids[++index];
   }
 }

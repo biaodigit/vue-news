@@ -51,5 +51,9 @@ export default {
   //增加全部加载过的新闻到数组
   addAllNews:({commit},stories) => {
     commit(types.ADD_ALL_NEWS,stories)
+  },
+  //添加下一篇新闻id
+  addNextId:({commit},id) => {
+    commit(types.ADD_NEXT_ID,id)
   }
 }
