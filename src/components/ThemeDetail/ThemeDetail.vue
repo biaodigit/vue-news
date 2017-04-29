@@ -1,20 +1,22 @@
 <template>
   <div class="themeDetail">
-    <v-header @showSide="show" :title="themeTitle"></v-header>
-    <sidebar :sidebarShow="sidebarShow" @hideSidebar="hide" ref="sidebar"></sidebar>
-    <div class="editors border-1px" @click="showEditors(id)">
-      <span class="editor">主编</span>
-      <div class="avatar" v-for="editor in this.$store.state.currentTheme.editors"><img :src="attachImageUrl(editor.avatar)" width="25" height="25"></div>
-      <span class="arrow_right"><img src="./arrow_right.png" width="15" height="15"></span>
-    </div>
-    <div class="themeNewList">
-      <ul>
-        <li v-for="story in this.$store.state.currentTheme.stories" :key="story.id" class="new border-1px" @click="goNew(story.id)">
-          <span class="title">{{story.title}}</span>
-          <span class="avatar" v-for="(item,index) in story.images" v-if="index<1"><img v-lazy="attachImageUrl(item)"></span>
-        </li>
-      </ul>
-    </div>
+    <div class="model" :class="model">
+      <v-header @showSide="show" :title="themeTitle"></v-header>
+      <sidebar :sidebarShow="sidebarShow" @hideSidebar="hide" ref="sidebar"></sidebar>
+      <div class="editors border-1px" @click="showEditors(id)">
+        <span class="editor">主编</span>
+        <div class="avatar" v-for="editor in this.$store.state.currentTheme.editors"><img :src="attachImageUrl(editor.avatar)" width="25" height="25"></div>
+        <span class="arrow_right"><img src="./arrow_right.png" width="15" height="15"></span>
+      </div>
+      <div class="themeNewList" :class="model">
+        <ul>
+          <li v-for="story in this.$store.state.currentTheme.stories" :key="story.id" class="new border-1px" @click="goNew(story.id)">
+            <span class="title">{{story.title}}</span>
+            <span class="avatar" v-for="(item,index) in story.images" v-if="index<1"><img v-lazy="attachImageUrl(item)"></span>
+          </li>
+        </ul>
+      </div>
+  </div>
   </div>
 </template>
 
@@ -93,6 +95,9 @@
       //获取当前主题标题
       themeTitle() {
          return this.$store.state.currentTheme.name
+      },
+      model() {
+        return this.$store.getters.getModel
       }
     },
     //注册组件
@@ -106,51 +111,64 @@
 <style lang="stylus" rel="stylesheet/stylus">
  @import "../../common/stylus/index.styl"
 
-  .editors
-    position relative
-    top 40px
-    width 92%
-    height 40px
-    line-height 40px
-    border-1px(rgba(7,17,27,0.1))
-    padding 0 10px
-    .editor
-      font-size 17px
-      color rgb(102,102,102)
-    .avatar
-      display inline-block
-      img
-        margin-left 10px
-        border-radius 50%
-    .arrow_right
-      position absolute
-      right 10px
-      padding 0 10px
+ .model
+   &.morning
+     color rgb(51,51,51)
+     background-color rgb(255,255,255)
+   &.night
+     color rgb(184,184,184)
+     background-color rgb(52,52,52)
+   .editors
+     position relative
+     top 40px
+     width 92%
+     height 40px
+     line-height 40px
+     border-1px(rgba(7,17,27,0.1))
+     padding 0 10px
+     .editor
+       font-size 17px
+       color rgb(102,102,102)
+     .avatar
+       display inline-block
+       img
+         margin-left 10px
+         border-radius 50%
+     .arrow_right
+       position absolute
+       right 10px
+       padding 0 10px
 
-  .themeNewList
-    position relative
-    top 40px
-    width 100%
-    height 100%
-    .new
-      display flex
-      position relative
-      left -15px
-      padding 20px 0 20px 10px
-      border-1px(rgba(7,17,27,0.1))
-      .title
-        flex 1
-        margin-right 10px
-        line-height 20px
-      .avatar
-        flex 0 0 70px
-        width 70px
-        height 55px
-        img
-          width 70px
-          height 55px
-          img[lazy=loading]
-            height 55px
-            width 70px
-            margin auto
+   .themeNewList
+     position relative
+     top 40px
+     width 100%
+     height 100%
+     &.morning
+       color rgb(51,51,51)
+       background-color rgb(255,255,255)
+     &.night
+       color rgb(184,184,184)
+       background-color rgb(52,52,52)
+     .new
+       display flex
+       position relative
+       left -15px
+       padding 20px 0 20px 10px
+       border-1px(rgba(7,17,27,0.1))
+       .title
+         flex 1
+         margin-right 10px
+         line-height 20px
+       .avatar
+         flex 0 0 70px
+         width 70px
+         height 55px
+         img
+           width 70px
+           height 55px
+           img[lazy=loading]
+             height 55px
+             width 70px
+             margin auto
 </style>

@@ -2,13 +2,15 @@
   <transition name="fold">
     <div class="collect">
       <sonheader @back="back" :title="title"></sonheader>
-      <div class="collectNewList">
-        <ul>
-          <li v-for="story in data" class="new border-1px" @click="goNew(story.id)">
-            <span class="title">{{story.title}}</span>
-            <span class="avatar"><img :src="attachImageUrl(story.images[0])"></span>
+      <div class="model" :class="model">
+        <div class="collectNewList">
+          <ul>
+            <li v-for="story in data" class="new border-1px" @click="goNew(story.id)">
+              <span class="title">{{story.title}}</span>
+              <span class="avatar"><img :src="attachImageUrl(story.images[0])"></span>
           </li>
         </ul>
+      </div>
       </div>
     </div>
   </transition>
@@ -52,6 +54,11 @@
         console.log(this.$store.state.currentThemeId)
       }
     },
+    computed:{
+      model() {
+        return this.$store.getters.getModel;
+      }
+    },
     //注册组件
     components:{
         sonheader
@@ -63,6 +70,7 @@
   @import "../../common/stylus/index.styl";
 
   .collect
+    position fixed
     width 100%
     height 100%
     z-index 100
@@ -72,27 +80,37 @@
       transition all 0.5s
     &.fold-enter,&.fold-leave-active
       transform translate3d(100%,0,0)
-    .collectNewList
+    .model
       position absolute
-      top 40px
       width 100%
-      z-index 30
-      .new
-        display flex
-        position relative
-        left -15px
-        padding 15px 0 15px 10px
-        border-1px(rgba(7,17,27,0.1))
-        .title
-          flex 1
-          margin-right 10px
-          line-height 20px
-        .avatar
-          flex 0 0 70px
-          width 70px
-          height 55px
-          img
+      height 100%
+      &.morning
+        color rgb(51,51,51)
+        background-color rgb(255,255,255)
+      &.night
+        color rgb(184,184,184)
+        background-color rgb(52,52,52)
+      .collectNewList
+        position absolute
+        top 40px
+        width 100%
+        z-index 30
+        .new
+          display flex
+          position relative
+          left -15px
+          padding 15px 0 15px 10px
+          border-1px(rgba(7,17,27,0.1))
+          .title
+            flex 1
+            margin-right 10px
+            line-height 20px
+          .avatar
+            flex 0 0 70px
             width 70px
             height 55px
+            img
+              width 70px
+              height 55px
 
 </style>

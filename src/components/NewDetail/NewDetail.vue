@@ -2,7 +2,7 @@
     <div class="newDetail">
       <div class="content-wrapper">
         <div class="bg-image"  v-if="data.image"><img :src="attachImageUrl(data.image)" v-lazy="attachImageUrl(data.image)"><span class="title">{{data.title}}</span></div>
-        <div class="body" v-html="data.body"></div>
+        <div class="body" v-html="data.body" :class="model"></div>
       </div>
       <bottommenu></bottommenu>
     </div>
@@ -52,6 +52,11 @@
         return body.replace(/src="http\w{0,1}:\/\//g, 'src="https://images.weserv.nl/?url=');
       }
     },
+    computed:{
+      model() {
+        return this.$store.getters.getModel
+      }
+    },
     //注册组件
     components:{
         bottommenu
@@ -83,5 +88,11 @@
     .body
       position absolute
       width 100%
+      &.morning
+        color rgb(51,51,51)
+        background-color rgb(255,255,255)
+      &.night
+        color rgb(184,184,184)
+        background-color rgb(52,52,52)
 
 </style>

@@ -55,5 +55,8 @@ export default {
   //添加下一篇新闻id
   addNextId:({commit},id) => {
     commit(types.ADD_NEXT_ID,id)
+  },
+  changeModel:({commit}) => {
+    commit(types.CHANGE_MODEL)
   }
 }

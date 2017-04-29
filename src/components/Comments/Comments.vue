@@ -1,8 +1,8 @@
 <template>
   <div class="comments">
     <sonheader @back="back" :title="title"></sonheader>
-    <div class="commentsArea">
-      <div class="longComments">
+    <div class="commentsArea" :class="model">
+      <div class="longComments" :class="model">
         <div class="longCommentsTitle border-1px" @click="showLongComment">{{this.$store.state.long_comments}}条长评<img class="thumb" :src="longThumb"></div>
         <div class="longComment border-1px" v-for="item in longComments" v-show="longCommentShow">
           <span class="avatar"><img :src="attachImageUrl(item.avatar)" width="30" height="30"></span>
@@ -13,7 +13,7 @@
           </div>
         </div>
       </div>
-      <div class="shortComments">
+      <div class="shortComments" :class="model">
         <div class="shortCommentsTitle border-1px" @click="showShortComment">{{this.$store.state.short_comments}}条短评<img class="thumb" :src="shortThumb"></div>
         <div class="shortComment border-1px" v-for="item in shortComments" v-show="shortCommentShow">
           <span class="avatar"><img :src="attachImageUrl(item.avatar)" width="30" height="30"></span>
@@ -106,6 +106,9 @@
           return require('./up.png')
         }
       },
+      model() {
+        return this.$store.getters.getModel
+      }
     },
     //注册组件
     components:{
@@ -123,10 +126,20 @@
      .commentsArea
        position absolute
        top 40px
-       bottom 30px
-       width 99%
+       height 100%
+       width 100%
+       &.morning
+         background-color rgb(2,143,214)
+       &.night
+         background-color rgb(85,85,85)
        .longComments,.shortComments
          width 100%
+         &.morning
+           color rgb(51,51,51)
+           background-color rgb(2,143,214)
+         &.night
+           color rgb(184,184,184)
+           background-color rgb(85,85,85)
          .longCommentsTitle,.shortCommentsTitle
            height 40px
            line-height 40px

@@ -34,9 +34,9 @@
             <div class="avatar"><i class="icon iconfont icon-lixianwenjian"></i></div>
             <div class="name">离线</div>
           </div>
-          <div class="menu">
-            <div class="avatar"><i class="icon iconfont icon-yejianmoshi"></i></div>
-            <div class="name">夜间</div>
+          <div class="menu" @click="changeModel">
+            <div class="avatar"><img :src="changeModelImg" width="18" height="18"></div>
+            <div class="name">{{this.$store.getters.getModelText}}</div>
           </div>
         </div>
       </div>
@@ -125,12 +125,22 @@
           this.$store.dispatch('changeCurrentThemeId',id);
           router.push({ name: 'themeDetail', params: { id: id } });
         }
+      },
+      changeModel() {
+        this.$store.dispatch('changeModel');
       }
     },
     computed: {
       //计算当前主题id
       currentThemeId() {
         return this.$store.state.currentThemeId;
+      },
+      changeModelImg() {
+        if(!this.$store.state.isNight){
+          return require('./yejian.png')
+        }else{
+          return require('./rijian.png')
+        }
       }
     },
     //注册组件
@@ -183,11 +193,6 @@
         left 60px
         width 30px
         height 30px
-        .fa-3x
-          width 30px
-          height 30px
-          font-size 20px
-          color #bfbfbf
     .menu-list
       display flex
       padding 10px 20px 10px 10px
@@ -238,6 +243,8 @@
           .iconfont
             color rgb(148,153,157)
             font-size 20px
+          img
+            margin-bottom 2px
         .name
           color rgb(148,153,157)
   .mask

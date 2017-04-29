@@ -24,6 +24,7 @@ export default {
   //下拉刷新数据后删除原有数组的新闻
   [types.DELETE_STORIES](state){
     state.stories = [];
+    state.ids = [];
   },
   //添加详情页底部状态到数组
   [types.STORY_EXTRA](state,extra){
@@ -77,6 +78,11 @@ export default {
   [types.ADD_NEXT_ID](state,id){
     state.id = id;
     let index = state.ids.indexOf(id);
-    state.nextId = state.ids[index+1];
+    if(index < state.ids.length) {
+      state.nextId = state.ids[index + 1];
+    }
+  },
+  [types.CHANGE_MODEL](state){
+    state.isNight = !state.isNight;
   }
 }
