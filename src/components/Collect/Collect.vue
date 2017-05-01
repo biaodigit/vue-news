@@ -51,7 +51,6 @@
         router.push({ name:'newDetail', params:{ id:id }});
         this.$store.dispatch('judgeCollectState');
         this.$store.dispatch('changeGoType',2)
-        console.log(this.$store.state.currentThemeId)
       }
     },
     computed:{

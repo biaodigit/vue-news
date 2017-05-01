@@ -12,6 +12,10 @@ export default {
   addNews:({ commit },payload) => {
     commit(types.ADD_NEWS,payload)
   },
+  //增加id数组到ids
+  addMoreIds:({commit},ids) => {
+    commit(types.ADD_MORE_IDS,ids)
+  },
   //改变当前新闻详情页id
   addNewId:({commit},id) => {
     commit(types.ADD_NEWID,id)
@@ -44,6 +48,9 @@ export default {
   addTheme:({commit},payload) => {
     commit(types.ADD_THEME,payload)
   },
+  addThemeIds:({commit},ids) => {
+    commit(types.ADD_THEME_NEWID,ids)
+  },
   //改变主编id
   addEditorId:({commit},payload) => {
     commit(types.ADD_EDITOR_ID,payload)
@@ -56,7 +63,20 @@ export default {
   addNextId:({commit},id) => {
     commit(types.ADD_NEXT_ID,id)
   },
+  //改变模式
   changeModel:({commit}) => {
     commit(types.CHANGE_MODEL)
+  },
+  //改变日期
+  addDate:({commit},date) => {
+    commit(types.ADD_DATE,date)
+  },
+  //改变日期字符串
+  addDateStr:({commit},dateStr) => {
+    commit(types.ADD_DATE_STR,dateStr)
+  },
+  //添加主题新闻下一篇新闻id
+  addThemeNextId:({commit},id) => {
+    commit(types.ADD_THEME_NEXT_ID,id)
   }
 }

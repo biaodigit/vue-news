@@ -106,6 +106,7 @@
           return require('./up.png')
         }
       },
+      //返回当前模式
       model() {
         return this.$store.getters.getModel
       }
@@ -129,14 +130,14 @@
        height 100%
        width 100%
        &.morning
-         background-color rgb(2,143,214)
+         background-color rgb(255,255,255)
        &.night
          background-color rgb(85,85,85)
        .longComments,.shortComments
          width 100%
          &.morning
            color rgb(51,51,51)
-           background-color rgb(2,143,214)
+           background-color rgb(255,255,255)
          &.night
            color rgb(184,184,184)
            background-color rgb(85,85,85)

@@ -9,6 +9,7 @@ export default {
   ids:[],                //当前新闻数组id
   id:'',                 //当前新闻id
   nextId:'',            //下一篇新闻id
+  themenextId:'',       //主题内容下一篇新闻id
   new:[],                //当前新闻详情页内容
   popularity:'',       //当前新闻点赞数
   isCollect:false,     //当前收藏状态
@@ -20,5 +21,8 @@ export default {
   goType:1,             //去往详情页上一个路由页面类型
   isNight:false,       //是否为夜间模式
   currentTheme:'',     //当前主题数组
-  editor:''             //当前主编信息
+  themeids:[],               //当前主题新闻数组id
+  editor:'',             //当前主编信息
+  date:0,                //日期
+  dateStr:0,            //日期字符串
 }

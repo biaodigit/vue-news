@@ -53,6 +53,7 @@
       }
     },
     computed:{
+      //返回当前模式
       model() {
         return this.$store.getters.getModel
       }

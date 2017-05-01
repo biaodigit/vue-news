@@ -50,8 +50,10 @@
             axios.get('api/theme/' + this.$store.state.currentThemeId).then((response) => {
               let theme = response.data
               let stories = theme.stories;
+              let ids = stories.map(story => story.id);
               this.$store.dispatch('addTheme',theme)
               this.$store.dispatch('addAllNews',stories);
+              this.$store.dispatch('addThemeIds',ids);
             }).catch((error) => {
               console.log(error)
             });
@@ -85,6 +87,7 @@
         router.push({ name:'newDetail', params:{ id:id }});
         this.$store.dispatch('judgeCollectState');
         this.$store.dispatch('changeGoType',3)
+        this.$store.dispatch('addThemeNextId',id)
       }
     },
     computed: {
@@ -96,6 +99,7 @@
       themeTitle() {
          return this.$store.state.currentTheme.name
       },
+      //返回当前模式
       model() {
         return this.$store.getters.getModel
       }

@@ -82,6 +82,7 @@
     //生命周期创建进行数据观察
     created() {
       this.fetchExtraData();
+      this.initDate();
     },
     //观察路由跳转数据更新
     watch:{
@@ -89,25 +90,25 @@
         this.fetchExtraData();
       }
     },
-    methods:{
+    methods: {
       //获取新闻
       fetchExtraData() {
         let id = this.$store.state.id;
         axios.get('api/story-extra/' + this.$store.state.id).then(response => {
-            let long_comments = response.data.long_comments;
-            let popularity = response.data.popularity;
-            let short_comments = response.data.short_comments;
-            let comments = response.data.comments;
+          let long_comments = response.data.long_comments;
+          let popularity = response.data.popularity;
+          let short_comments = response.data.short_comments;
+          let comments = response.data.comments;
 
-            this.$store.dispatch('changeStoryExtra',{
-                long_comments:long_comments,
-                short_comments:short_comments,
-                comments:comments,
-                popularity:popularity
-            })
-          }).catch(error => {
-            console.log(error);
-          });
+          this.$store.dispatch('changeStoryExtra', {
+            long_comments: long_comments,
+            short_comments: short_comments,
+            comments: comments,
+            popularity: popularity
+          })
+        }).catch(error => {
+          console.log(error);
+        });
       },
       //返回上一级路由，判断是从哪里进入
       goBack() {
@@ -119,15 +120,14 @@
         }else if(this.$store.state.goType == 3){
             router.push({ name:'themeDetail',params:{id:this.$store.state.currentThemeId}});
         };
-        console.log(this.$store.state.ids)
       },
       //点赞
       thumbUp() {
         this.thumb = !this.thumb;
-        if(this.thumb){
-            this.$store.state.popularity++;
-        }else{
-            this.$store.state.popularity--;
+        if (this.thumb) {
+          this.$store.state.popularity++;
+        } else {
+          this.$store.state.popularity--;
         }
       },
       //显示分享栏
@@ -144,13 +144,70 @@
       },
       //跳转评论路由页面
       goComments(id){
-          router.push({ name:'comments',params:{id:id}})
+        router.push({name: 'comments', params: {id: id}})
+      },
+      //获取当前日期
+      initDate() {
+        let nowDate = new Date();
+        this.$store.dispatch('addDate',nowDate);
+        this.changeDateStr();
+      },
+      //把日期改为字符串形式
+      changeDateStr() {
+        let nowDate = this.$store.state.date;
+        let year = nowDate.getFullYear();
+        let month = nowDate.getMonth() + 1;
+        let date = nowDate.getDate();
+        month = month < 10 ? '0' + month : month;
+        date = date < 10 ? '0' + date: date;
+
+        let dateStr = year + month + date;
+
+        this.$store.dispatch('addDateStr',dateStr)
+      },
+      //将日期推前一天
+      decreaseDateStr() {
+        let nowDate = this.$store.state.date;
+        nowDate.setDate(nowDate.getDate() - 1);
+        this.changeDateStr();
+      },
+      //获取前一天的新闻
+      fetchMoreDate() {
+        axios.get('api/news/before/'+ this.$store.state.dateStr).then((response) => {
+          let stories = response.data.stories;
+          let ids = stories.map(story => story.id)
+
+          this.$store.dispatch('addMoreIds',ids)
+          this.$nextTick(() =>{
+            let index = this.$store.state.ids.indexOf(this.$store.state.id);
+            let id = this.$store.state.ids[++index];
+            router.push({name: 'newDetail', params: {id: id}});
+            this.$store.dispatch('addNextId', id);
+          })
+        }).catch((error) => {
+          console.log(error)
+        })
       },
       //加载下一篇新闻
       goNext(){
-        let id = this.$store.state.nextId;
-        router.push({ name:'newDetail', params:{ id:id}});
-        this.$store.dispatch('addNextId',id);
+        if(this.$store.state.goType == 1) {
+          if (this.$store.state.ids.indexOf(this.$store.state.nextId) > 0) {
+            let id = this.$store.state.nextId;
+            router.push({name: 'newDetail', params: {id: id}});
+            this.$store.dispatch('addNextId', id);
+          } else {
+            this.fetchMoreDate();
+            this.decreaseDateStr();
+          }
+        }else if(this.$store.state.goType == 3){
+            if(this.$store.state.themeids.indexOf(this.$store.state.themenextId) > 0) {
+              let id = this.$store.state.themenextId;
+              router.push({name: 'newDetail', params: {id: id}});
+              this.$store.dispatch('addThemeNextId', id)
+            }else{
+               alert('已到最后一篇')
+            }
+        }
       }
     },
     computed:{
@@ -158,6 +215,7 @@
       newId(){
         return this.$store.state.id;
       },
+      //返回当前模式
       model() {
         return this.$store.getters.getModel
       }
@@ -216,7 +274,7 @@
           transform translate3d(0,100%,0)
         &.morning
           color rgb(51,51,51)
-          background-color rgb(255,255,255)
+          background-color rgb(233,233,233)
           border-top 1px solid #f5f5f5
         &.night
           color rgb(184,184,184)

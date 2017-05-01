@@ -64,7 +64,6 @@
         }).catch((error) => {
           console.log(error)
         })
-        console.log(this.$store.state.ids)
       },
       //转换图片url
       attachImageUrl(srcUrl) {
@@ -80,7 +79,7 @@
       //把日期改为字符串形式
       changeDateStr() {
         let year = this.date.getFullYear();
-        let month = this.date.getMonth();
+        let month = this.date.getMonth()+1;
         let date = this.date.getDate();
         month = month < 10 ? '0' + month : month;
         date = date < 10 ? '0' + date : date;
@@ -91,6 +90,7 @@
       decreaseDateStr() {
         this.date.setDate(this.date.getDate() - 1);
         this.changeDateStr();
+
       },
       //获取前一天的新闻
       fetchMoreDate() {
@@ -102,11 +102,12 @@
             stories:stories,
             ids:ids
           })
+          this.decreaseDateStr();
         }).catch((error) => {
           console.log(error)
         })
 
-        this.decreaseDateStr();
+
       },
       //隐藏侧边栏，向上派发事件
       hideSidebar() {
@@ -121,6 +122,7 @@
       }
     },
     computed:{
+      //返回当前模式
       model() {
         return this.$store.getters.getModel
       }

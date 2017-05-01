@@ -11,7 +11,13 @@ export default {
   //增加首页新闻数组和首页新闻id数组
   [types.ADD_NEWS](state,payload){
     state.stories = state.stories.concat(payload.stories);
-    state.ids = state.ids.concat(payload.ids);
+    if(state.ids.indexOf(payload.ids[0]) < 0) {
+      state.ids = state.ids.concat(payload.ids);
+    }
+  },
+  //添加更多的id数组
+  [types.ADD_MORE_IDS](state,ids){
+  state.ids = state.ids.concat(ids);
   },
   //改变当前新闻详情页id
   [types.ADD_NEWID](state,id){
@@ -64,7 +70,7 @@ export default {
   },
   //增加主题新闻数据
   [types.ADD_THEME](state,payload){
-    state.currentTheme = payload;
+    state.currentTheme = payload
   },
   //改变主编id
   [types.ADD_EDITOR_ID](state,payload){
@@ -82,7 +88,26 @@ export default {
       state.nextId = state.ids[index + 1];
     }
   },
+  //改变模式
   [types.CHANGE_MODEL](state){
     state.isNight = !state.isNight;
+  },
+  //改变日期和当前字符串
+  [types.ADD_DATE](state,date){
+    state.date = date;
+  },
+  //增加日期字符串
+  [types.ADD_DATE_STR](state,dateStr){
+    state.dateStr = dateStr;
+  },
+  //主题新闻id数组
+  [types.ADD_THEME_NEWID](state,ids){
+    state.themeids = ids;
+  },
+  //增加主题新闻下一篇id
+  [types.ADD_THEME_NEXT_ID](state,id){
+    state.id = id;
+    let index = state.themeids.indexOf(id);
+    state.themenextId = state.themeids[index + 1];
   }
 }

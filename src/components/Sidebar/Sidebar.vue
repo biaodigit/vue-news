@@ -135,6 +135,7 @@
       currentThemeId() {
         return this.$store.state.currentThemeId;
       },
+      //改变模式图片
       changeModelImg() {
         if(!this.$store.state.isNight){
           return require('./yejian.png')
