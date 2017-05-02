@@ -30,6 +30,7 @@
         this.initDate();
       }
       this.$on('refresh',() => {
+        this.initDate();
         this.refreshData();
       })
       this.$on('loadMore',() => {
