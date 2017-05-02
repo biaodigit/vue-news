@@ -97,6 +97,7 @@
         let nowDate = this.$store.state.homepageDate;
         nowDate.setDate(nowDate.getDate() - 1);
         this.$store.dispatch('addHomePageDate',nowDate);
+        this.$store.dispatch('addDate',nowDate);
         this.changeDateStr();
       },
       //获取前一天的新闻

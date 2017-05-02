@@ -120,6 +120,9 @@
         }else if(this.$store.state.goType == 3){
             router.push({ name:'themeDetail',params:{id:this.$store.state.currentThemeId}});
         }
+//            console.log(this.$store.state.date);
+        console.log(this.$store.state.homepageDate);
+//            console.log(this.$store.state.dateStr);
         console.log(this.$store.state.homepageDateStr);
       },
       //点赞
@@ -159,6 +162,11 @@
         date = date < 10 ? '0' + date: date;
 
         let dateStr = year + month + date;
+        //以下三行代码为对主页日期的修正，当底部栏需要加载更多日期字符串的时候首页日期会自动变为昨天的日期
+        let homedate = nowDate;
+        homedate.setDate(homedate.getDate() + 1);
+        this.$store.dispatch('addHomePageDate',homedate);
+
         this.$store.dispatch('addDate',nowDate);
         this.$store.dispatch('addDateStr',dateStr)
       },
@@ -189,6 +197,8 @@
           } else {
             this.fetchMoreDate();
             this.decreaseDateStr();
+            console.log(this.$store.state.homepageDate);
+            console.log(this.$store.state.homepageDateStr);
           }
         }else if(this.$store.state.goType == 3){
             if(this.$store.state.themeids.indexOf(this.$store.state.themenextId) > 0) {
