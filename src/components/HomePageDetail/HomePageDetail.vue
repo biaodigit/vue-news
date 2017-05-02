@@ -95,10 +95,10 @@
       },
       //将日期推前一天
       decreaseDateStr() {
-        let nowDate = this.$store.state.homepageDate;
-        nowDate.setDate(nowDate.getDate() - 1);
-        this.$store.dispatch('addHomePageDate',nowDate);
-        this.$store.dispatch('addDate',nowDate);
+        let homeDate = this.$store.state.homepageDate;
+        homeDate.setDate(homeDate.getDate() - 1);
+        this.$store.dispatch('addDate',homeDate);
+        this.$store.dispatch('addHomePageDate',homeDate);
         this.changeDateStr();
       },
       //获取前一天的新闻

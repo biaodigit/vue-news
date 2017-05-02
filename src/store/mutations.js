@@ -92,6 +92,14 @@ export default {
   [types.CHANGE_MODEL](state){
     state.isNight = !state.isNight;
   },
+  //改变首页日期
+  [types.ADD_HOMEPAGE_DATE](state,date){
+    state.homepageDate = date;
+  },
+  //改变首页字符串
+  [types.ADD_HOMEPAGE_DATE_STR](state,dateStr){
+    state.homepageDateStr = dateStr;
+  },
   //改变日期和当前字符串
   [types.ADD_DATE](state,date){
     state.date = date;
@@ -109,13 +117,5 @@ export default {
     state.id = id;
     let index = state.themeids.indexOf(id);
     state.themenextId = state.themeids[index + 1];
-  },
-  //改变首页日期
-  [types.ADD_HOMEPAGE_DATE](state,date){
-    state.homepageDate = date;
-  },
-  //改变首页字符串
-  [types.ADD_HOMEPAGE_DATE_STR](state,dateStr){
-    state.homepageDateStr = dateStr;
   }
 }
