@@ -119,8 +119,8 @@
           this.$store.dispatch('changeGoType',1);
         }else if(this.$store.state.goType == 3){
             router.push({ name:'themeDetail',params:{id:this.$store.state.currentThemeId}});
-        };
-        console.log(this.$store.state.homepageDate)
+        }
+        console.log(this.$store.state.homepageDateStr);
       },
       //点赞
       thumbUp() {

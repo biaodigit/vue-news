@@ -79,9 +79,11 @@ export default {
   addThemeNextId:({commit},id) => {
     commit(types.ADD_THEME_NEXT_ID,id)
   },
+  //改变首页日期
   addHomePageDate:({commit},date) => {
     commit(types.ADD_HOMEPAGE_DATE,date)
   },
+  //改变日期字符串
   addHomePageDateStr:({commit},dateStr) => {
     commit(types.ADD_HOMEPAGE_DATE_STR,dateStr)
   }

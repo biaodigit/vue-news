@@ -98,7 +98,6 @@
         nowDate.setDate(nowDate.getDate() - 1);
         this.$store.dispatch('addHomePageDate',nowDate);
         this.changeDateStr();
-        console.log(this.$store.state.homepageDateStr)
       },
       //获取前一天的新闻
       fetchMoreDate() {
