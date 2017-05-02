@@ -19,16 +19,16 @@
     data() {
       return {
         date:Date,
-        datestr:'',
+        dateStr:'',
       }
     },
     //生命周期开始创建数据观察
     created() {
       if(this.$store.state.isFirstLoad) {
         this.fetchData();
-        this.$store.dispatch('changeFirstLoad')
+        this.$store.dispatch('changeFirstLoad');
+        this.initDate();
       }
-      this.initDate();
       this.$on('refresh',() => {
         this.refreshData();
       })
@@ -74,27 +74,35 @@
       //获取第一次加载当前日期
       initDate() {
         this.date = new Date();
+        this.$store.dispatch('addDate',this.date);
+        this.$store.dispatch('addHomePageDate',this.date);
         this.changeDateStr();
       },
       //把日期改为字符串形式
       changeDateStr() {
-        let year = this.date.getFullYear();
-        let month = this.date.getMonth()+1;
-        let date = this.date.getDate();
+        let nowDate = this.$store.state.homepageDate;
+        let year = nowDate.getFullYear();
+        let month = nowDate.getMonth()+1;
+        let date = nowDate.getDate();
         month = month < 10 ? '0' + month : month;
         date = date < 10 ? '0' + date : date;
 
-        this.datestr = year + month + date;
+        this.dateStr = year + month + date;
+
+        this.$store.dispatch('addDateStr',this.dateStr)
+        this.$store.dispatch('addHomePageDateStr',this.dateStr)
       },
       //将日期推前一天
       decreaseDateStr() {
-        this.date.setDate(this.date.getDate() - 1);
+        let nowDate = this.$store.state.homepageDate;
+        nowDate.setDate(nowDate.getDate() - 1);
+        this.$store.dispatch('addHomePageDate',nowDate);
         this.changeDateStr();
-
+        console.log(this.$store.state.homepageDateStr)
       },
       //获取前一天的新闻
       fetchMoreDate() {
-        axios.get('api/news/before/'+ this.datestr).then((response) => {
+        axios.get('api/news/before/'+ this.$store.state.homepageDateStr).then((response) => {
           let stories = response.data.stories;
           let ids = stories.map(story => story.id)
 
@@ -102,12 +110,10 @@
             stories:stories,
             ids:ids
           })
-          this.decreaseDateStr();
         }).catch((error) => {
           console.log(error)
         })
-
-
+        this.decreaseDateStr();
       },
       //隐藏侧边栏，向上派发事件
       hideSidebar() {
@@ -119,6 +125,7 @@
         router.push({ name:'newDetail', params:{ id:id }});
         this.$store.dispatch('judgeCollectState');
         this.$store.dispatch('changeGoType',1);
+
       }
     },
     computed:{

@@ -23,6 +23,8 @@ export default {
   currentTheme:'',     //当前主题数组
   themeids:[],               //当前主题新闻数组id
   editor:'',             //当前主编信息
+  homepageDate:'',
+  homepageDateStr:'',
   date:0,                //日期
   dateStr:0,            //日期字符串
 }

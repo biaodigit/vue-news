@@ -22,4 +22,6 @@ export const ADD_DATE = 'ADD_DATE'
 export const ADD_DATE_STR = 'ADD_DATE_STR'
 export const ADD_MORE_IDS = 'ADD_MORE_IDS'
 export const ADD_THEME_NEXT_ID = 'ADD_THEME_NEXT_ID'
+export const ADD_HOMEPAGE_DATE = 'ADD_HOMEPAGE_DATE'
+export const ADD_HOMEPAGE_DATE_STR = 'ADD_HOMEPAGE_DATE_STR'
 

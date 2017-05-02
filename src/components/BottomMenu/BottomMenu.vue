@@ -82,7 +82,7 @@
     //生命周期创建进行数据观察
     created() {
       this.fetchExtraData();
-      this.initDate();
+//      this.initDate();
     },
     //观察路由跳转数据更新
     watch:{
@@ -120,6 +120,7 @@
         }else if(this.$store.state.goType == 3){
             router.push({ name:'themeDetail',params:{id:this.$store.state.currentThemeId}});
         };
+        console.log(this.$store.state.homepageDate)
       },
       //点赞
       thumbUp() {
@@ -146,15 +147,11 @@
       goComments(id){
         router.push({name: 'comments', params: {id: id}})
       },
-      //获取当前日期
-      initDate() {
-        let nowDate = new Date();
-        this.$store.dispatch('addDate',nowDate);
-        this.changeDateStr();
-      },
-      //把日期改为字符串形式
-      changeDateStr() {
+      //将日期推前一天
+      decreaseDateStr() {
         let nowDate = this.$store.state.date;
+        nowDate.setDate(nowDate.getDate() - 1);
+
         let year = nowDate.getFullYear();
         let month = nowDate.getMonth() + 1;
         let date = nowDate.getDate();
@@ -162,14 +159,8 @@
         date = date < 10 ? '0' + date: date;
 
         let dateStr = year + month + date;
-
+        this.$store.dispatch('addDate',nowDate);
         this.$store.dispatch('addDateStr',dateStr)
-      },
-      //将日期推前一天
-      decreaseDateStr() {
-        let nowDate = this.$store.state.date;
-        nowDate.setDate(nowDate.getDate() - 1);
-        this.changeDateStr();
       },
       //获取前一天的新闻
       fetchMoreDate() {

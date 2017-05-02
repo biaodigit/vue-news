@@ -78,5 +78,11 @@ export default {
   //添加主题新闻下一篇新闻id
   addThemeNextId:({commit},id) => {
     commit(types.ADD_THEME_NEXT_ID,id)
+  },
+  addHomePageDate:({commit},date) => {
+    commit(types.ADD_HOMEPAGE_DATE,date)
+  },
+  addHomePageDateStr:({commit},dateStr) => {
+    commit(types.ADD_HOMEPAGE_DATE_STR,dateStr)
   }
 }

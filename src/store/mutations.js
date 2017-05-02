@@ -109,5 +109,11 @@ export default {
     state.id = id;
     let index = state.themeids.indexOf(id);
     state.themenextId = state.themeids[index + 1];
+  },
+  [types.ADD_HOMEPAGE_DATE](state,date){
+    state.homepageDate = date;
+  },
+  [types.ADD_HOMEPAGE_DATE_STR](state,dateStr){
+    state.homepageDateStr = dateStr;
   }
 }
