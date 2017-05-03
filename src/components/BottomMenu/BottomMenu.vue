@@ -149,9 +149,9 @@
       },
       //将日期推前一天
       decreaseDateStr() {
-        let nowDate = this.$store.state.date;
+        let nowDate = new Date(this.$store.state.date.getTime());
         nowDate.setDate(nowDate.getDate()-1);
-
+        this.$store.dispatch('addDate',nowDate);
         let year = nowDate.getFullYear();
         let month = nowDate.getMonth() + 1;
         let date = nowDate.getDate();
@@ -160,7 +160,6 @@
 
         let dateStr = year + month + date;
 
-        this.$store.dispatch('addDate',nowDate);
         this.$store.dispatch('addDateStr',dateStr)
 
       },

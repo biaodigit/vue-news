@@ -75,13 +75,15 @@
       //获取第一次加载当前日期
       initDate() {
         this.date = new Date();
-        this.$store.dispatch('addDate',this.date);
-        this.$store.dispatch('addHomePageDate',this.date);
+        this.$store.dispatch('addDate',new Date(this.date.getTime()));
+        this.$store.dispatch('addHomePageDate',new Date(this.date.getTime()));
+//        this.$store.dispatch('addDate',this.date);
+//        this.$store.dispatch('addHomePageDate',this.date);
         this.changeDateStr();
       },
       //把日期改为字符串形式
       changeDateStr() {
-        let nowDate = this.$store.state.homepageDate;
+        let nowDate = new Date(this.$store.state.homepageDate.getTime());
         let year = nowDate.getFullYear();
         let month = nowDate.getMonth()+1;
         let date = nowDate.getDate();
@@ -89,7 +91,6 @@
         date = date < 10 ? '0' + date : date;
 
         this.dateStr = year + month + date;
-
         this.$store.dispatch('addDateStr',this.dateStr)
         this.$store.dispatch('addHomePageDateStr',this.dateStr)
       },
@@ -97,8 +98,8 @@
       decreaseDateStr() {
         let homeDate = this.$store.state.homepageDate;
         homeDate.setDate(homeDate.getDate() - 1);
-        this.$store.dispatch('addDate',homeDate);
-        this.$store.dispatch('addHomePageDate',homeDate);
+        this.$store.dispatch('addDate',new Date(homeDate.getTime()));
+        this.$store.dispatch('addHomePageDate',new Date(homeDate.getTime()));
         this.changeDateStr();
       },
       //获取前一天的新闻
