@@ -134,10 +134,12 @@
       //显示分享栏
       showShare() {
         this.shareshow = !this.shareshow
+        document.body.style = "overflow:hidden"
       },
       //隐藏分享栏
       hideShare() {
         this.shareshow = !this.shareshow
+        document.body.style = ""
       },
       //改变收藏状态
       changeCollect(){

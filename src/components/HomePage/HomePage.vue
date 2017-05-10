@@ -1,5 +1,5 @@
 <template>
-  <div class="homepage">
+  <div class="homepage" ref="homepage">
     <v-header @showSide="show"></v-header>
     <sidebar :sidebarShow="sidebarShow" @hideSidebar="hide" ref="sidebar"></sidebar>
     <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :topDistance="topDistance" :bottomDistance="bottomDistance"
@@ -64,10 +64,12 @@
             this.$refs.sidebar.fetchData();
           })
         }
+        document.body.style = "overflow:hidden"
       },
       //隐藏侧边栏
       hide() {
         this.sidebarShow = false;
+        document.body.style = ""
       }
     },
     //注册组件

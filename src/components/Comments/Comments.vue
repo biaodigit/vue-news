@@ -55,6 +55,12 @@
         this.fetchShortData();
       }
     },
+    filters:{
+      formatDate(time){
+        let date = new Date(time);
+        return formatDate(date,'yyyy-MM-dd hh:mm')
+      }
+    },
     methods:{
       //获取长评论数据
       fetchLongData() {
