@@ -111,14 +111,14 @@ proxyTable: {
 ```js
  attachImageUrl(srcUrl) {
    if(srcUrl !== undefined){
-      return srcUrl.replace(/http\w{0,1}:\/\/p/g,'https://images.weserv.nl/?url=p');
+      return srcUrl.replace(/http\w{0,1}:\/\/p/g,'https://images.weserv.nl/?url=p')
    }
  }
 ```
 或
 ```js
  attachImageUrl: function(body) {
-    return body.replace(/src="http\w{0,1}:\/\//g, 'src="https://images.weserv.nl/?url=');
+    return body.replace(/src="http\w{0,1}:\/\//g, 'src="https://images.weserv.nl/?url=')
   }
 ```
 
