@@ -21,7 +21,7 @@
 [在线地址](http://lwdvue.cn/#/)
 
 PC端建议在chrome浏览器的移动端模式下浏览
- 
+
 ## 功能
 
 - [x] 首页
@@ -67,7 +67,7 @@ PC端建议在chrome浏览器的移动端模式下浏览
 - [ ] 下拉刷新时会出现空白
 - [ ] 收藏路由过渡动画生硬,且动画只执行了一半
 - [ ] 新闻详情页过渡动画出现加载数据量大回退卡顿【此交互已取消,日后或采用weex解决】
-- [x] ~~加载下一篇新闻若加载到已加载新闻数组id最后一篇则无法加载下一篇~~ 
+- [x] ~~加载下一篇新闻若加载到已加载新闻数组id最后一篇则无法加载下一篇~~
 - [x] ~~侧边栏显示滑动穿透~~
 
 ## Todo
@@ -90,7 +90,7 @@ PC端建议在chrome浏览器的移动端模式下浏览
 ## 总结
 ### 知乎接口跨域问题(在此感谢[yatecssss](http://www.yatessss.com/2016/07/08/%E4%BD%BF%E7%94%A8vue%E5%AE%8C%E6%88%90%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5web%E7%89%88.html)前辈做出的贡献)
 调用知乎API时遇到了跨域问题，但是知乎的接口好像不支持jsonp，谷歌一波发现可以使用vue-cli自带的config的proxyTable文件配置进行解决，配置非常简单：
-	
+
 ```js
 proxyTable: {
  '/api': {
@@ -118,7 +118,7 @@ proxyTable: {
 或
 ```js
  attachImageUrl: function(body) {
-    return body.replace(/src="http\w{0,1}:\/\//g, 'src="https://images.weserv.nl/?url=');
+    return body.replace(/src="http\w{0,1}:\/\//g, 'src="https://images.weserv.nl/?url=')
   }
 ```
 
