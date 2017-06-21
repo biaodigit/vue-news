@@ -240,7 +240,7 @@
         background-color rgb(52,52,52)
       .menu
         flex 1
-        line-height 44px
+        line-height 39px
         font-size 30px
         text-align center
         margin-bottom 5px
