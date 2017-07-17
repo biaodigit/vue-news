@@ -1,7 +1,8 @@
 <template>
   <div class="header">
     <div class="model" :class="model">
-      <span class="navigation" @click="showSidebar"></span><h2>{{title}}</h2>
+      <span class="navigation" @click="showSidebar"></span>
+      <h2>{{title}}</h2>
     </div>
   </div>
 </template>
@@ -9,19 +10,19 @@
 <script type="text/ecmascript-6">
   export default {
     //接收从父组件传来的标题值
-    props:{
-      title:{
-        type:String,
-        default:'今日热闻'           //标题默认值
+    props: {
+      title: {
+        type: String,
+        default: '今日热闻'           //标题默认值
       }
     },
-    methods:{
+    methods: {
       //显示侧边栏，向上派发事件
       showSidebar() {
         this.$emit('showSide');
       }
     },
-    computed:{
+    computed: {
       //返回当前模式
       model() {
         return this.$store.getters.getModel
@@ -31,7 +32,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-   @import '../../common/stylus/mixin.styl'
+  @import '../../common/stylus/mixin.styl'
 
   .header
     position fixed
@@ -44,11 +45,11 @@
     text-align center
     .model
       &.morning
-        color rgb(51,51,51)
-        background-color rgb(2,143,214)
+        color rgb(51, 51, 51)
+        background-color rgb(2, 143, 214)
       &.night
-        color rgb(184,184,184)
-        background-color rgb(85,85,85)
+        color rgb(184, 184, 184)
+        background-color rgb(85, 85, 85)
       & > h2
         line-height 40px
         font-size 22px

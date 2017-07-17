@@ -1,12 +1,12 @@
 <template>
   <div>
     <transition name="fold">
-      <div class="sidebar"  v-show="sidebarShow">
+      <div class="sidebar" v-show="sidebarShow">
         <div class="user">
-        <div class="avatar"></div>
-        <div class="username">哈哈哈蜜瓜</div>
-        <div class="back" @click="hide"><img src="./back.png" width="22" height="22"></div>
-      </div>
+          <div class="avatar"></div>
+          <div class="username">哈哈哈蜜瓜</div>
+          <div class="back" @click="hide"><img src="./back.png" width="22" height="22"></div>
+        </div>
         <div class="menu-list">
           <div class="menu" @click="goCollect">
             <div class="avatar"><img src="./collect.png" width="20" height="20"></div>
@@ -20,15 +20,16 @@
             <div class="avatar"><i class="icon iconfont icon-shezhi"></i></div>
             <div class="name">设置</div>
           </div>
-      </div>
+        </div>
         <div class="themes-list" ref="themeWrapper">
-        <ul style="padding-left: 0">
-          <li class="themes" v-for="item in data" @click="goTheme(item.id)" :class="{'current':currentThemeId===item.id}">
-            <div class="icons" v-if="item.id == -1"><i class="icon iconfont icon-shouyeshouye"></i></div>
-            <div class="themetitle">{{item.name}}</div>
-          </li>
-        </ul>
-      </div>
+          <ul style="padding-left: 0">
+            <li class="themes" v-for="item in data" @click="goTheme(item.id)"
+                :class="{'current':currentThemeId===item.id}">
+              <div class="icons" v-if="item.id == -1"><i class="icon iconfont icon-shouyeshouye"></i></div>
+              <div class="themetitle">{{item.name}}</div>
+            </li>
+          </ul>
+        </div>
         <div class="bottom-menu">
           <div class="menu">
             <div class="avatar"><i class="icon iconfont icon-lixianwenjian"></i></div>
@@ -42,7 +43,7 @@
       </div>
     </transition>
     <transition name="fade">
-      <div class="mask"  @click.stop.prevent="hide"  v-show="sidebarShow"></div>
+      <div class="mask" @click.stop.prevent="hide" v-show="sidebarShow"></div>
     </transition>
   </div>
 </template>
@@ -55,18 +56,18 @@
 
   export default {
     //接收父组件传值
-    props:{
-      sidebarShow:{
-        type:Boolean
+    props: {
+      sidebarShow: {
+        type: Boolean
       },
-      currentIndex:{
-        type:Number,
-        default:-1                    //当前高亮主题默认id
+      currentIndex: {
+        type: Number,
+        default: -1                    //当前高亮主题默认id
       }
     },
     data() {
       return {
-        data:[]                        //初始化主题列表数据
+        data: []                        //初始化主题列表数据
       }
     },
     //生命周期创建观察数据
@@ -74,12 +75,12 @@
       this.fetchData();
     },
     //观察路由跳转更新数据
-    watch:{
-      '$route'(to,form){
+    watch: {
+      '$route'(to, form){
         this.fetchData();
       }
     },
-    methods:{
+    methods: {
       //隐藏侧边栏，向上派发事件
       hide() {
         this.$emit('hideSidebar');
@@ -99,8 +100,8 @@
           });
 
           this.$nextTick(() => {
-            this.themeScroll = new BScroll(this.$refs.themeWrapper,{
-              click:true
+            this.themeScroll = new BScroll(this.$refs.themeWrapper, {
+              click: true
             });
           });
         }).catch((error) => {
@@ -109,21 +110,21 @@
       },
       //跳转收藏页面路由
       goCollect() {
-        router.push({ name:'collect' })
+        router.push({name: 'collect'})
       },
       //跳转主题页面路由
       goTheme(id) {
-        if(id == -1) {
+        if (id == -1) {
           this.hide();
           router.push({name: 'homePage'});
-          this.$store.dispatch('changeGoType',1)
-          this.$store.dispatch('changeCurrentThemeId',id);
-        }else if(id == this.$route.params.id){
+          this.$store.dispatch('changeGoType', 1)
+          this.$store.dispatch('changeCurrentThemeId', id);
+        } else if (id == this.$route.params.id) {
           this.hide();
-        }else {
+        } else {
           this.hide();
-          this.$store.dispatch('changeCurrentThemeId',id);
-          router.push({ name: 'themeDetail', params: { id: id } });
+          this.$store.dispatch('changeCurrentThemeId', id);
+          router.push({name: 'themeDetail', params: {id: id}});
         }
       },
       changeModel() {
@@ -137,15 +138,15 @@
       },
       //改变模式图片
       changeModelImg() {
-        if(!this.$store.state.isNight){
+        if (!this.$store.state.isNight) {
           return require('./yejian.png')
-        }else{
+        } else {
           return require('./rijian.png')
         }
       }
     },
     //注册组件
-    components:{
+    components: {
       collect
     }
   }
@@ -162,12 +163,12 @@
     z-index 50
     height 100%
     width 230px
-    background-color rgb(35,42,48)
-    transform translate3d(0,0,0)
-    &.fold-enter-active,&.fold-leave-active
+    background-color rgb(35, 42, 48)
+    transform translate3d(0, 0, 0)
+    &.fold-enter-active, &.fold-leave-active
       transition all 0.5s
-    &.fold-enter,&.fold-leave-active
-      transform translate3d(-100%,0,0)
+    &.fold-enter, &.fold-leave-active
+      transform translate3d(-100%, 0, 0)
     .user
       padding 10px 10px 0
       font-size 0
@@ -184,7 +185,7 @@
       .username
         display inline-block
         font-size 15px
-        color rgb(148,153,157)
+        color rgb(148, 153, 157)
         line-height 40px
       .back
         display inline-block
@@ -203,10 +204,10 @@
         .avatar
           margin-bottom 5px
           .iconfont
-            color rgb(148,153,157)
+            color rgb(148, 153, 157)
             font-size 20px
         .name
-          color rgb(148,153,157)
+          color rgb(148, 153, 157)
     .themes-list
       position absolute
       top 114px
@@ -217,10 +218,10 @@
         display table
         width 100%
         padding-left 15px
-        color rgb(148,153,157)
+        color rgb(148, 153, 157)
         &.current
-          background-color rgb(27,35,41)
-          color rgb(255,255,255)
+          background-color rgb(27, 35, 41)
+          color rgb(255, 255, 255)
         .icons
           display inline-block
           margin-right 5px
@@ -242,12 +243,13 @@
         .avatar
           margin-bottom 5px
           .iconfont
-            color rgb(148,153,157)
+            color rgb(148, 153, 157)
             font-size 20px
           img
             margin-bottom 2px
         .name
-          color rgb(148,153,157)
+          color rgb(148, 153, 157)
+
   .mask
     position fixed
     top 0
@@ -257,8 +259,8 @@
     z-index 40
     background: rgba(7, 17, 27, 0.6)
     opacity 1
-    &.fade-enter-active,&.fade-leave-active
+    &.fade-enter-active, &.fade-leave-active
       transition all 0.5s
-    &.fade-enter,&.fade-leave-active
+    &.fade-enter, &.fade-leave-active
       opacity 0
 </style>

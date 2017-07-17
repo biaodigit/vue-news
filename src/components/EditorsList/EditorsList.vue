@@ -3,7 +3,8 @@
     <sonheader :title="title" @back="back"></sonheader>
     <div class="list">
       <ul>
-        <li class="editor border-1px" v-for="editor in this.$store.state.currentTheme.editors" @click="goEditor(editor.id,editor.name)">
+        <li class="editor border-1px" v-for="editor in this.$store.state.currentTheme.editors"
+            @click="goEditor(editor.id,editor.name)">
           <div class="avatar">
             <img :src="attachImageUrl(editor.avatar)" height="35" width="35">
           </div>
@@ -25,32 +26,32 @@
 
   export default {
     data() {
-       return {
-          title:'主编'                   //主编列表头部标题
-       }
+      return {
+        title: '主编'                   //主编列表头部标题
+      }
     },
-    methods:{
+    methods: {
       //返回上一级路由
       back() {
-        router.push({name:'themeDetail',params:{id:this.$store.state.currentThemeId}})
+        router.push({name: 'themeDetail', params: {id: this.$store.state.currentThemeId}})
       },
       //对图片url进行转化
       attachImageUrl(srcUrl) {
-        if(srcUrl !== undefined){
-          return srcUrl.replace(/http\w{0,1}:\/\/p/g,'https://images.weserv.nl/?url=p')
+        if (srcUrl !== undefined) {
+          return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p')
         }
       },
       //跳转主编个人主页路由
-      goEditor(id,name) {
-        router.push({name:'editor',params:{id:id}});
-        this.$store.dispatch('addEditorId',{
-          id:id,
-          name:name
+      goEditor(id, name) {
+        router.push({name: 'editor', params: {id: id}});
+        this.$store.dispatch('addEditorId', {
+          id: id,
+          name: name
         });
       }
     },
     //注册组件
-    components:{
+    components: {
       sonheader
     }
   }
@@ -67,7 +68,7 @@
       .editor
         display flex
         height 60px
-        border-1px(rgba(7,17,27,0.1))
+        border-1px(rgba(7, 17, 27, 0.1))
         .avatar
           flex 0 0 25px
           height 60px
@@ -85,7 +86,7 @@
           .bio
             font-size 11px
             margin-top 8px
-            color rgb(153,153,153)
+            color rgb(153, 153, 153)
         .arrow_right
           flex 0 0 25px
           line-height 60px

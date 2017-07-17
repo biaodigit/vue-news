@@ -12,31 +12,31 @@
 
   export default {
     data() {
-       return {
-         editor:{}                   //主编信息
-       }
+      return {
+        editor: {}                   //主编信息
+      }
     },
     //生命周期创建数据观察
     created() {
       this.fetchEditor();
     },
     //观察路由跳转更新数据
-    watch:{
-      '$route'(to,from) {
+    watch: {
+      '$route'(to, from) {
         this.fetchEditor();
       }
     },
-    methods:{
+    methods: {
       //获取主编信息
       fetchEditor() {
         let id = this.$store.state.editor.id;
-        axios.get('api/editor/'+ id + '/profile-page/ios').then((response) => {
+        axios.get('api/editor/' + id + '/profile-page/ios').then((response) => {
           response.data = this.attachImageUrl(response.data);
           this.editor = response.data;
         })
       },
       //对图片url进行转化
-      attachImageUrl: function(body) {
+      attachImageUrl: function (body) {
         return body.replace(/src="http\w{0,1}:\/\//g, 'src="https://images.weserv.nl/?url=');
       },
       //返回上一级路由
@@ -45,7 +45,7 @@
       }
     },
     //注册组件
-    components:{
+    components: {
       sonheader
     }
   }

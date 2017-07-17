@@ -97,9 +97,9 @@
       //将日期推前一天
       decreaseDateStr() {
         let homeDate = this.$store.state.homepageDate;
-        homeDate.setDate(homeDate.getDate() - 1);
-        this.$store.dispatch('addDate',new Date(homeDate.getTime()));
-        this.$store.dispatch('addHomePageDate',new Date(homeDate.getTime()));
+        homeDate.setDate(homeDate.getDate() - 1)
+        this.$store.dispatch('addDate',new Date(homeDate.getTime()))
+        this.$store.dispatch('addHomePageDate',new Date(homeDate.getTime()))
         this.changeDateStr();
       },
       //获取前一天的新闻

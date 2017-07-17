@@ -2,7 +2,8 @@
   <div class="homepage" ref="homepage">
     <v-header @showSide="show"></v-header>
     <sidebar :sidebarShow="sidebarShow" @hideSidebar="hide" ref="sidebar"></sidebar>
-    <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :topDistance="topDistance" :bottomDistance="bottomDistance"
+    <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :topDistance="topDistance"
+                 :bottomDistance="bottomDistance"
                  @top-status-change="handleTopChange"
                  @bottom-status-change="handleBottomChange" ref="loadmore">
       <swipe></swipe>
@@ -29,15 +30,16 @@
   export default {
     data() {
       return {
-        sidebarShow:false,                   //侧边栏初始状态
-        data:[],                               //初始化首页新闻数据
-        topDistance:50,                       //下拉刷新最小距离
-        bottomDistance:70,                    //上拉加载最小距离
-        bottomStatus:'',                      //底部状态
-        topStatus:''                           //顶部状态
+        sidebarShow: false,                   //侧边栏初始状态
+        data: [],                               //初始化首页新闻数据
+        topDistance: 50,                       //下拉刷新最小距离
+        bottomDistance: 70,                    //上拉加载最小距离
+        bottomStatus: '',                      //底部状态
+        topStatus: '',                           //顶部状态
+        scroll: ''
       }
     },
-    methods:{
+    methods: {
       //获取底部更新状态
       handleBottomChange(status) {
         this.bottomStatus = status;
@@ -58,25 +60,29 @@
       },
       //显示侧边栏，在其显示时访问他的获取数据方法，从而使better-scroll能够计算出中间主题列表高度
       show() {
+        this.scroll = document.scrollingElement.scrollTop
         this.sidebarShow = true;
-        if(this.sidebarShow){
+        if (this.sidebarShow) {
           this.$nextTick(() => {
             this.$refs.sidebar.fetchData();
           })
+          document.body.className = 'modal-open'
+          document.body.style.top = -this.scroll + 'px'
         }
-        document.body.style = "overflow:hidden"
+
       },
       //隐藏侧边栏
       hide() {
         this.sidebarShow = false;
-        document.body.style = ""
+        document.body.className = ""
+        document.scrollingElement.scrollTop = this.scroll
       }
     },
     //注册组件
-    components:{
-      'v-header':header,
-      sidebar,swipe,homepageDetail
-      }
+    components: {
+      'v-header': header,
+      sidebar, swipe, homepageDetail
+    }
   }
 </script>
 
@@ -84,7 +90,12 @@
   .mint-loadmore-top
     position relative
     top 40px
+
   .mint-loadmore-bottom
     position relative
     top 30px
+
+  .modal-open
+    position:fixed
+    width:100%
 </style>
