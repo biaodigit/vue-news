@@ -3,9 +3,12 @@
     <div class="model" :class="model">
       <div class="menu" @click="goBack"><i class="icon iconfont icon-back"></i></div>
       <div class="menu" @click="goNext"><i class="icon iconfont icon-moreunfold"></i></div>
-      <div class="menu" :class="{'isThumbUp':thumb}"  @click="thumbUp"><i class="icon iconfont icon-dianzan"></i><span class="extra">{{this.$store.state.popularity}}</span></div>
+      <div class="menu" :class="{'isThumbUp':thumb}" @click="thumbUp"><i class="icon iconfont icon-dianzan"></i><span
+        class="extra">{{this.$store.state.popularity}}</span></div>
       <div class="menu" @click="showShare"><i class="icon iconfont icon-fenxiang"></i></div>
-      <div class="menu" @click="goComments(newId)"><i class="icon iconfont icon-pinglun"></i><span class="extra" v-if="this.$store.state.comments != 0">{{this.$store.state.comments}}</span></div>
+      <div class="menu" @click="goComments(newId)"><i class="icon iconfont icon-pinglun"></i><span class="extra"
+                                                                                                   v-if="this.$store.state.comments != 0">{{this.$store.state.comments}}</span>
+      </div>
       <transition name="fold">
         <div class="share" v-show="shareshow" :class="model">
           <div class="title">分享这篇内容</div>
@@ -75,8 +78,9 @@
   export default {
     data() {
       return {
-        thumb:false,                         //点赞状态
-        shareshow:false,                    //分享栏状态
+        thumb: false,                         //点赞状态
+        shareshow: false,                    //分享栏状态
+        scroll: ''
       }
     },
     //生命周期创建进行数据观察
@@ -84,8 +88,8 @@
       this.fetchExtraData();
     },
     //观察路由跳转数据更新
-    watch:{
-      '$route'(to,from){
+    watch: {
+      '$route'(to, from){
         this.fetchExtraData();
       }
     },
@@ -111,13 +115,13 @@
       },
       //返回上一级路由，判断是从哪里进入
       goBack() {
-        if(this.$store.state.goType == 1){
-            router.push({ name:'homePage'})
-        }else if(this.$store.state.goType == 2){
-           router.push({ name:'collect'});
-          this.$store.dispatch('changeGoType',1);
-        }else if(this.$store.state.goType == 3){
-            router.push({ name:'themeDetail',params:{id:this.$store.state.currentThemeId}});
+        if (this.$store.state.goType == 1) {
+          router.push({name: 'homePage'})
+        } else if (this.$store.state.goType == 2) {
+          router.push({name: 'collect'});
+          this.$store.dispatch('changeGoType', 1);
+        } else if (this.$store.state.goType == 3) {
+          router.push({name: 'themeDetail', params: {id: this.$store.state.currentThemeId}});
         }
         console.log(this.$store.state.homepageDate);
         console.log(this.$store.state.homepageDateStr);
@@ -133,13 +137,16 @@
       },
       //显示分享栏
       showShare() {
+        this.scroll = document.scrollingElement.scrollTop
         this.shareshow = !this.shareshow
-        document.body.style = "overflow:hidden"
+        document.body.className = 'modal-open'
+        document.body.style.top = -this.scroll + 'px'
       },
       //隐藏分享栏
       hideShare() {
         this.shareshow = !this.shareshow
-        document.body.style = ""
+        document.body.className = ''
+        document.scrollingElement.scrollTop = this.scroll
       },
       //改变收藏状态
       changeCollect(){
@@ -152,27 +159,27 @@
       //将日期推前一天
       decreaseDateStr() {
         let nowDate = new Date(this.$store.state.date.getTime());
-        nowDate.setDate(nowDate.getDate()-1);
-        this.$store.dispatch('addDate',nowDate);
+        nowDate.setDate(nowDate.getDate() - 1);
+        this.$store.dispatch('addDate', nowDate);
         let year = nowDate.getFullYear();
         let month = nowDate.getMonth() + 1;
         let date = nowDate.getDate();
         month = month < 10 ? '0' + month : month;
-        date = date < 10 ? '0' + date: date;
+        date = date < 10 ? '0' + date : date;
 
         let dateStr = year + month + date;
 
-        this.$store.dispatch('addDateStr',dateStr)
+        this.$store.dispatch('addDateStr', dateStr)
 
       },
       //获取前一天的新闻
       fetchMoreDate() {
-        axios.get('api/news/before/'+ this.$store.state.dateStr).then((response) => {
+        axios.get('api/news/before/' + this.$store.state.dateStr).then((response) => {
           let stories = response.data.stories;
           let ids = stories.map(story => story.id)
 
-          this.$store.dispatch('addMoreIds',ids)
-          this.$nextTick(() =>{
+          this.$store.dispatch('addMoreIds', ids)
+          this.$nextTick(() => {
             let index = this.$store.state.ids.indexOf(this.$store.state.id);
             let id = this.$store.state.ids[++index];
             router.push({name: 'newDetail', params: {id: id}});
@@ -184,7 +191,7 @@
       },
       //加载下一篇新闻
       goNext(){
-        if(this.$store.state.goType == 1) {
+        if (this.$store.state.goType == 1) {
           if (this.$store.state.ids.indexOf(this.$store.state.nextId) > 0) {
             let id = this.$store.state.nextId;
             router.push({name: 'newDetail', params: {id: id}});
@@ -195,18 +202,18 @@
             console.log(this.$store.state.homepageDate);
             console.log(this.$store.state.homepageDateStr);
           }
-        }else if(this.$store.state.goType == 3){
-            if(this.$store.state.themeids.indexOf(this.$store.state.themenextId) > 0) {
-              let id = this.$store.state.themenextId;
-              router.push({name: 'newDetail', params: {id: id}});
-              this.$store.dispatch('addThemeNextId', id)
-            }else{
-               alert('已到最后一篇')
-            }
+        } else if (this.$store.state.goType == 3) {
+          if (this.$store.state.themeids.indexOf(this.$store.state.themenextId) > 0) {
+            let id = this.$store.state.themenextId;
+            router.push({name: 'newDetail', params: {id: id}});
+            this.$store.dispatch('addThemeNextId', id)
+          } else {
+            alert('已到最后一篇')
+          }
         }
       }
     },
-    computed:{
+    computed: {
       //返回当前新闻详情页id
       newId(){
         return this.$store.state.id;
@@ -228,16 +235,16 @@
     bottom -1px
     height 44px
     width 100%
-    background-color rgb(255,255,255)
+    background-color rgb(255, 255, 255)
     .model
       display flex
       &.morning
-        color rgb(51,51,51)
-        background-color rgb(255,255,255)
+        color rgb(51, 51, 51)
+        background-color rgb(255, 255, 255)
         border-top 1px solid #f5f5f5
       &.night
-        color rgb(184,184,184)
-        background-color rgb(52,52,52)
+        color rgb(184, 184, 184)
+        background-color rgb(52, 52, 52)
       .menu
         flex 1
         line-height 39px
@@ -263,18 +270,18 @@
         height 380px
         background #f5f5f5
         z-index 50
-        transform translate3d(0,0,0)
-        &.fold-enter-active,&.fold-leave-active
+        transform translate3d(0, 0, 0)
+        &.fold-enter-active, &.fold-leave-active
           transition all 0.5s
-        &.fold-enter,&.fold-leave-active
-          transform translate3d(0,100%,0)
+        &.fold-enter, &.fold-leave-active
+          transform translate3d(0, 100%, 0)
         &.morning
-          color rgb(51,51,51)
-          background-color rgb(233,233,233)
+          color rgb(51, 51, 51)
+          background-color rgb(233, 233, 233)
           border-top 1px solid #f5f5f5
         &.night
-          color rgb(184,184,184)
-          background-color rgb(52,52,52)
+          color rgb(184, 184, 184)
+          background-color rgb(52, 52, 52)
         .title
           width 100%
           height 25px
@@ -319,7 +326,6 @@
               &.icon-instapaper
                 background: #6c6c6c;
 
-
             .name
               display block
               position relative
@@ -327,22 +333,21 @@
               font-size 18px
               text-align center
 
-
         .button
           position relative
           height 40px
           width 80%
           bottom 5px
           margin 15px auto
-          background rgb(255,255,255)
+          background rgb(255, 255, 255)
           text-align center
           line-height 40px
           &.morning
-            color rgb(51,51,51)
-            background-color rgb(255,255,255)
+            color rgb(51, 51, 51)
+            background-color rgb(255, 255, 255)
           &.night
-            color rgb(184,184,184)
-            background-color rgb(85,85,85)
+            color rgb(184, 184, 184)
+            background-color rgb(85, 85, 85)
 
       .mask
         position fixed
@@ -353,8 +358,13 @@
         background: rgba(7, 17, 27, 0.6)
         z-index 40
         opacity 1
-        &.fade-enter-active,&.fade-leave-active
+        &.fade-enter-active, &.fade-leave-active
           transition all 0.5s
-        &.fade-enter,&.fade-leave-active
+        &.fade-enter, &.fade-leave-active
           opacity 0
+
+
+  .modal-open
+    position fixed
+    width 100%
 </style>
