@@ -108,6 +108,8 @@
           console.log('error');
         })
       },
+
+      //region 跳转方法
       //跳转收藏页面路由
       goCollect() {
         router.push({name: 'collect'})
@@ -127,9 +129,13 @@
           router.push({name: 'themeDetail', params: {id: id}});
         }
       },
+      //endregion
+
+      //region vuex
       changeModel() {
         this.$store.dispatch('changeModel');
       }
+      //endregion
     },
     computed: {
       //计算当前主题id
