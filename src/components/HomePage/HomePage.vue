@@ -7,7 +7,7 @@
                  @top-status-change="handleTopChange"
                  @bottom-status-change="handleBottomChange" ref="loadmore">
       <swipe></swipe>
-      <homepageDetail @hideSidebar="hide" ref="homePageDetail"></homepageDetail>
+      <homepage-detail @hideSidebar="hide" ref="homePageDetail"></homepage-detail>
       <div slot="top" class="mint-loadmore-top">
         <span v-show="topStatus != 'loading'">下拉刷新</span>
         <span v-show="topStatus == 'loading'">刷新中...</span>
