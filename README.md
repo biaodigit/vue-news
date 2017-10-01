@@ -127,6 +127,6 @@ proxyTable: {
 
 > 感谢[yatecssss](https://github.com/yatessss) 前辈的[使用vue完成知乎日报web版](http://www.yatessss.com/2016/07/08/%E4%BD%BF%E7%94%A8vue%E5%AE%8C%E6%88%90%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5web%E7%89%88.html)总结
 
-> 感谢[鹏神](https://github.com/HunterPen),[康哥](https://github.com/ZWkang),[博哥](https://github.com/cccyb),自然哥在开发过程中给予的帮助,心怀感恩,铭记于心！
+> 感谢[鹏神](https://github.com/HunterPen),[康哥](https://github.com/ZWkang),[陈老板](https://github.com/cccyb),自然哥在开发过程中给予的帮助,心怀感恩,铭记于心！
 
 
