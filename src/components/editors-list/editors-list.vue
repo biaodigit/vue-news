@@ -1,6 +1,6 @@
 <template>
   <div class="editorsList">
-    <sonheader :title="title" @back="back"></sonheader>
+    <son-header :title="title" @back="back"></son-header>
     <div class="list">
       <ul>
         <li class="editor border-1px" v-for="editor in this.$store.state.currentTheme.editors"
@@ -22,7 +22,7 @@
 <script type="text/ecmascript-6">
   import axios from 'axios'
   import router from '../../router'
-  import sonheader from '../SonHeader/SonHeader.vue'
+  import SonHeader from '../son-header/son-header'
 
   export default {
     data() {
@@ -52,7 +52,7 @@
     },
     //注册组件
     components: {
-      sonheader
+      SonHeader
     }
   }
 </script>

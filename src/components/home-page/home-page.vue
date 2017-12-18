@@ -1,13 +1,13 @@
 <template>
   <div class="homepage" ref="homepage">
     <v-header @showSide="show"></v-header>
-    <sidebar :sidebarShow="sidebarShow" @hideSidebar="hide" ref="sidebar"></sidebar>
+    <sidebar ref="sidebar"></sidebar>
     <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :topDistance="topDistance"
                  :bottomDistance="bottomDistance"
                  @top-status-change="handleTopChange"
                  @bottom-status-change="handleBottomChange" ref="loadmore">
       <swipe></swipe>
-      <homepage-detail @hideSidebar="hide" ref="homePageDetail"></homepage-detail>
+      <home-page-detail @hideSidebar="hide" ref="homePageDetail"></home-page-detail>
       <div slot="top" class="mint-loadmore-top">
         <span v-show="topStatus != 'loading'">下拉刷新</span>
         <span v-show="topStatus == 'loading'">刷新中...</span>
@@ -21,16 +21,15 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import header from '../Header/Header.vue'
-  import sidebar from '../Sidebar/Sidebar.vue'
-  import swipe from  '../Swipe/Swipe.vue'
-  import homepageDetail from '../HomePageDetail/HomePageDetail.vue'
+  import VHeader from 'components/v-header/v-header.vue'
+  import Sidebar from 'components/sidebar/sidebar.vue'
+  import swipe from 'components/swipe/swipe.vue'
+  import HomePageDetail from 'components/home-page-detail/home-page-detail'
   import axios from 'axios'
 
   export default {
     data() {
       return {
-        sidebarShow: false,                   //侧边栏初始状态
         data: [],                               //初始化首页新闻数据
         topDistance: 50,                       //下拉刷新最小距离
         bottomDistance: 70,                    //上拉加载最小距离
@@ -60,16 +59,8 @@
       },
       //显示侧边栏，在其显示时访问他的获取数据方法，从而使better-scroll能够计算出中间主题列表高度
       show() {
-        this.scroll = document.scrollingElement.scrollTop
-        this.sidebarShow = true;
-        if (this.sidebarShow) {
-          this.$nextTick(() => {
-            this.$refs.sidebar.fetchData();
-          })
-          document.body.className = 'modal-open'
-          document.body.style.top = -this.scroll + 'px'
-        }
-
+        console.log(1)
+        this.$refs.sidebar.open()
       },
       //隐藏侧边栏
       hide() {
@@ -80,8 +71,10 @@
     },
     //注册组件
     components: {
-      'v-header': header,
-      sidebar, swipe, homepageDetail
+      VHeader,
+      Sidebar,
+      swipe,
+      HomePageDetail
     }
   }
 </script>
@@ -96,6 +89,6 @@
     top 30px
 
   .modal-open
-    position:fixed
-    width:100%
+    position: fixed
+    width: 100%
 </style>

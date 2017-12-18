@@ -17,6 +17,20 @@
         type: Boolean,
         default: false
       },
+      scrollX: {
+        type: Boolean,
+        default: false,
+      },
+      scrollY: {
+        type: Boolean,
+        default: true
+      },
+      data: {
+        type: Array,
+        default() {
+          return []
+        }
+      },
       pullDown: {
         type: Boolean,
         default: false
@@ -30,49 +44,31 @@
         default: 50
       }
     },
-    data() {
-      return {
-        scrollY: -1
-      }
-    },
     mounted() {
-//      setTimeout(() => {
-//        this.initScroll()
-//      }, 20)
+      setTimeout(() => {
+        this.initScroll()
+      }, 20)
     },
     watch: {
       data() {
-//        setTimeout(() => {
-//          this.refresh()
-//        },20)
+        setTimeout(() => {
+          this.refresh()
+        }, 20)
       },
     },
     methods: {
       initScroll() {
         this.scroll = new BScroll(this.$refs.wrapper, {
+          scrollX: this.scrollX,
+          scrollY: this.scrollY,
           click: true
         })
-        if(this.listenScroll){
+
+        if (this.listenScroll) {
           let self = this
-          this.scroll.on('scroll',(pos) => {
-            self.$emit('scroll',pos)
+          this.scroll.on('scroll', (pos) => {
+            self.$emit('scroll', pos)
           })
-        }
-
-        if(this.pullDown){
-          this.scroll.on('touchEnd', (pos) => {
-            if(pos.y >= this.distance) {
-              this.$emit('pullDownRefresh')
-            }
-          })
-        }
-
-        if (this.pullUp) {
-            this.scroll.on('touchEnd', (pos) => {
-              if(pos.y <= this.scroll.maxScrollY - this.distance){
-                this.$emit('pullUpLoad')
-              }
-            })
         }
       },
       refresh() {

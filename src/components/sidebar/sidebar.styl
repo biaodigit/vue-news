@@ -1,0 +1,110 @@
+@import "~common/stylus/index.styl"
+@import "~common/stylus/iconfont.css"
+
+.sidebar
+  position fixed
+  top 0
+  left 0
+  z-index 50
+  height 100%
+  width 230px
+  background-color rgb(35, 42, 48)
+  transform translate3d(0, 0, 0)
+  &.fold-enter-active, &.fold-leave-active
+    transition all 0.5s
+  &.fold-enter, &.fold-leave-active
+    transform translate3d(-100%, 0, 0)
+  .user
+    padding 10px 10px 0
+    font-size 0
+    .avatar
+      display inline-block
+      margin-right 10px
+      width 40px
+      height 40px
+      bg-image('useravatar')
+      background-size 40px 40px
+      background-repeat no-repeat
+      border-radius 50%
+      vertical-align top
+    .username
+      display inline-block
+      font-size 15px
+      color rgb(148, 153, 157)
+      line-height 40px
+    .back
+      display inline-block
+      vertical-align top
+      position relative
+      top 10px
+      left 60px
+      width 30px
+      height 30px
+  .menu-list
+    display flex
+    padding 10px 20px 10px 10px
+    .menu
+      flex 1
+      text-align center
+      .avatar
+        margin-bottom 5px
+        .iconfont
+          color rgb(148, 153, 157)
+          font-size 20px
+      .name
+        color rgb(148, 153, 157)
+  .themes-list
+    position absolute
+    top 114px
+    bottom 56px
+    width 100%
+    overflow hidden
+    .themes
+      display table
+      width 100%
+      padding-left 15px
+      color rgb(148, 153, 157)
+      &.current
+        background-color rgb(27, 35, 41)
+        color rgb(255, 255, 255)
+      .icons
+        display inline-block
+        margin-right 5px
+      .themetitle
+        display inline-block
+        line-height 50px
+
+  .bottom-menu
+    position absolute
+    display flex
+    bottom 0
+    left 0
+    width 100%
+    height 56px
+    .menu
+      flex 1
+      text-align center
+      padding-top 5px
+      .avatar
+        margin-bottom 5px
+        .iconfont
+          color rgb(148, 153, 157)
+          font-size 20px
+        img
+          margin-bottom 2px
+      .name
+        color rgb(148, 153, 157)
+
+.mask
+  position fixed
+  top 0
+  left 0
+  width 100%
+  height 100%
+  z-index 40
+  background: rgba(7, 17, 27, 0.6)
+  opacity 1
+  &.fade-enter-active, &.fade-leave-active
+    transition all 0.5s
+  &.fade-enter, &.fade-leave-active
+    opacity 0

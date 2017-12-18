@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HomePage from 'components/HomePage/HomePage'
-import ThemeDetail from 'components/ThemeDetail/ThemeDetail'
-import NewDetail from 'components/NewDetail/NewDetail'
-import Collect from 'components/Collect/Collect'
-import Comments from 'components/Comments/Comments'
-import EditorsList from 'components/EditorsList/EditorsList'
-import Editor from 'components/Editor/Editor'
+import HomePage from 'components/home-page/home-page'
+import ThemeDetail from 'components/theme-detail/theme-detail'
+import NewDetail from 'components/new-detail/new-detail'
+import Collect from 'components/collect/collect'
+import Comments from 'components/comments/comments'
+import EditorsList from 'components/editors-list/editors-list'
+import Editor from 'components/editor/editor'
 
 Vue.use(Router)
 

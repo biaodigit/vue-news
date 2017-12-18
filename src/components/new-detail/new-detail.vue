@@ -4,14 +4,14 @@
         <div class="bg-image"  v-if="data.image"><img :src="attachImageUrl(data.image)" v-lazy="attachImageUrl(data.image)"><span class="title">{{data.title}}</span></div>
         <div class="body" v-html="data.body" :class="model"></div>
       </div>
-      <bottommenu></bottommenu>
+      <bottom-menu></bottom-menu>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
   import axios from 'axios'
   import router from '../../router'
-  import bottommenu from '../BottomMenu/BottomMenu.vue'
+  import BottomMenu from '../bottom-menu/bottom-menu'
 
   export default {
     data() {
@@ -60,7 +60,7 @@
     },
     //注册组件
     components:{
-        bottommenu
+      BottomMenu
     }
   }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <transition name="fold" mode="in-out">
     <div class="collect">
-      <sonheader @back="back" :title="title"></sonheader>
+      <son-header @back="back" :title="title"></son-header>
       <div class="model" :class="model">
         <div class="collectNewList">
           <ul>
@@ -18,8 +18,8 @@
 
 <script type="text/ecmascript-6">
   import router from '../../router'
-  import sidebar from '../Sidebar/Sidebar.vue'
-  import sonheader from '../SonHeader/SonHeader.vue'
+  import sidebar from '../sidebar/sidebar.vue'
+  import SonHeader from '../son-header/son-header'
 
   export default {
     data() {
@@ -60,7 +60,7 @@
     },
     //注册组件
     components: {
-      sonheader
+      SonHeader
     }
   }
 </script>

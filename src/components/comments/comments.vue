@@ -1,6 +1,6 @@
 <template>
   <div class="comments">
-    <sonheader @back="back" :title="title"></sonheader>
+    <son-header @back="back" :title="title"></son-header>
     <div class="commentsArea" :class="model">
       <div class="longComments" :class="model">
         <div class="longCommentsTitle border-1px" @click="showLongComment">{{this.$store.state.long_comments}}条长评<img
@@ -33,7 +33,7 @@
 <script type="text/ecmascript-6">
   import router from '../../router'
   import axios from 'axios'
-  import sonheader from '../SonHeader/SonHeader.vue'
+  import SonHeader from '../son-header/son-header'
 
   export default {
     data() {
@@ -121,7 +121,7 @@
     },
     //注册组件
     components: {
-      sonheader
+      SonHeader
     }
   }
 </script>

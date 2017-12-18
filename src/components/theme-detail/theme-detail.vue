@@ -2,7 +2,7 @@
   <div class="themeDetail">
     <div class="model" :class="model">
       <v-header @showSide="show" :title="themeTitle"></v-header>
-      <sidebar :sidebarShow="sidebarShow" @hideSidebar="hide" ref="sidebar"></sidebar>
+      <sidebar ref="sidebar"></sidebar>
       <div class="editors border-1px" @click="showEditors(id)">
         <span class="editor">主编</span>
         <div class="avatar" v-for="editor in this.$store.state.currentTheme.editors"><img
@@ -23,15 +23,14 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import header from '../Header/Header.vue'
-  import sidebar from '../Sidebar/Sidebar.vue'
+  import VHeader from 'components/v-header/v-header.vue'
+  import Sidebar from 'components/sidebar/sidebar.vue'
   import axios from 'axios';
   import router from '../../router'
 
   export default {
     data() {
       return {
-        sidebarShow: false,         //侧边栏显示状态
         id: '',                        //当前主题id
         scroll: ''
       }
@@ -65,19 +64,7 @@
       },
       //显示侧边栏，在其显示时访问他的获取数据方法，从而使better-scroll能够计算出中间主题列表高度
       show() {
-        this.scroll = document.scrollingElement.scrollTop
-        this.sidebarShow = true;
-        if (this.sidebarShow) {
-          this.$refs.sidebar.fetchData();
-          document.body.className = 'modal-open'
-          document.body.style.top = -this.scroll + 'px'
-        }
-      },
-      //隐藏侧边栏
-      hide() {
-        this.sidebarShow = false;
-        document.body.className = ''
-        document.scrollingElement.scrollTop = this.scroll
+        this.$refs.sidebar.open()
       },
       //对图片url进行转换
       attachImageUrl(srcUrl) {
@@ -114,8 +101,8 @@
     },
     //注册组件
     components: {
-      'v-header': header,
-      sidebar
+      VHeader,
+      Sidebar
     }
   }
 </script>
