@@ -51,7 +51,7 @@
 <script type="text/ecmascript-6">
   import Scroll from 'base/scroll/scroll'
   import Collect from 'components/collect/collect'
-  import {getThemeTitle} from 'common/api/sidebar'
+  import {getThemeTitle} from 'api/sidebar'
   import {mapGetters, mapMutations} from 'vuex'
 
   export default {
