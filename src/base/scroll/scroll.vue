@@ -78,12 +78,6 @@
   }
 </script>
 
-<style>
-  .scroll {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    bottom: 0;
-    overflow: hidden;
-  }
+<style scoped lang="stylus" rel="stylesheet/stylus">
+  @import "scroll.styl"
 </style>

@@ -32,11 +32,11 @@
         })
       },
       //对图片url进行转化
-      attachImageUrl: function(srcUrl) {
-        if (srcUrl !== undefined) {
-          return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
-        }
-      },
+//      attachImageUrl: function(srcUrl) {
+//        if (srcUrl !== undefined) {
+//          return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
+//        }
+//      },
       //跳转对应新闻详情页路由
       goNew(id) {
         this.$store.dispatch('addNewId',id);

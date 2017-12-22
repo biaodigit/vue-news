@@ -47,7 +47,7 @@
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
     "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.1",
+    "stylus-loader": "^2.1.1",
     "url-loader": "^0.5.8",
     "vue-loader": "^11.1.4",
     "vue-style-loader": "^2.0.0",
