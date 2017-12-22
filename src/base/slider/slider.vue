@@ -73,17 +73,16 @@
         this.slider.on('scrollEnd', this._changePageIndex)
       },
       _changePageIndex() {
-        this.currentPageIndex = this.slider.getCurrentPage().pageX - 1
+        this.currentPageIndex = this.slider.getCurrentPage().pageX
         if (this.autoPlay) {
           this._play()
         }
       },
       _play() {
-        let index = this.slider.getCurrentPage().pageX + 1
-        console.log(index)
+        clearTimeout(this.timer)
         if (this.autoPlay) {
           this.timer = setTimeout(() => {
-            this.slider.goToPage(index, 0, 400)
+            this.slider.next()
           }, this.interval)
         }
       }
