@@ -40,8 +40,38 @@
         }
       }, 20)
     },
+    activated() {
+      this.slider.enable()
+      let index = this.slider.getCurrentPage().pageX
+      this.currentPageIndex = index
+      this.slider.goToPage(index, 0, 400)
+      if (this.autoPlay) {
+        this._play()
+      }
+
+      window.addEventListener('resize', () => {
+        if (!this.slider || !this.slider.enabled) {
+          return
+        }
+
+        this.resizeTimer = setTimeout(() => {
+          if (this.slider.isInTransition) {
+            this._changePageIndex()
+          } else {
+            if (this.autoPlay) {
+              this._play()
+            }
+          }
+          this.refreshSlider()
+        }, 60)
+      })
+    },
     methods: {
-      _setSliderWidth() {
+      refreshSlider() {
+        this._setSliderWidth(true)
+        this.slider.refresh()
+      },
+      _setSliderWidth(resize) {
         this.children = this.$refs.sliderGroup.children
         let width = 0
         let sliderWidth = this.$refs.slider.clientWidth
@@ -53,7 +83,7 @@
           children.style.width = `${sliderWidth}px`
           children.style.height = `${sliderWidth * 0.5}px`
         }
-        if (this.loop) {
+        if (this.loop && !resize) {
           width += 2 * sliderWidth
         }
         this.$refs.sliderGroup.style.width = `${width}px`
@@ -86,6 +116,14 @@
           }, this.interval)
         }
       }
+    },
+    deactivated() {
+      this.slider.disable()
+      clearTimeout(this.timer)
+    },
+    destroyed() {
+      this.slider.disable()
+      clearTimeout(this.timer)
     }
   }
 </script>
