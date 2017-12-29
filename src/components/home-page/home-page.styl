@@ -5,16 +5,50 @@
   top 40px
   bottom 0
   width 100%
-  .slider-wrapper
-    position relative
-    width 100%
-    height 0
-    padding-top 50%
+  .home-page-content
+    height 100%
     overflow hidden
-    .slider-content
-      position absolute
-      top 0
-      left 0
+    .slider-wrapper
+      position relative
       width 100%
-      height 100%
+      height 0
+      padding-top 50%
       overflow hidden
+      .slider-content
+        position absolute
+        top 0
+        left 0
+        width 100%
+        height 100%
+        overflow hidden
+    .newList
+      .model
+        &.morning
+          color rgb(51,51,51)
+          background-color rgb(255,255,255)
+        &.night
+          color rgb(184,184,184)
+          background-color rgb(52,52,52)
+        .new
+          display flex
+          position relative
+          padding 20px 0 20px 10px
+          &.morning
+            border-1px(rgba(7,17,27,0.1))
+          &.night
+            border-1px(rgb(43,43,43))
+          .title
+            flex 1
+            margin-right 10px
+            line-height 20px
+          .avatar
+            flex 0 0 70px
+            width 70px
+            height 55px
+            img
+              width 70px
+              height 55px
+              img[lazy=loading]
+                height 55px
+                width 70px
+                margin auto

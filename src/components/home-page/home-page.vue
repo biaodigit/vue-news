@@ -1,34 +1,63 @@
 <template>
   <div class="home-page" ref="homepage">
-    <div v-if="sliders.length" class="slider-wrapper">
-      <div class="slider-content">
-        <slider>
-          <div v-for="item in sliders">
-            <img :src="item.image">
+    <scroll :pull-up="pullUp" @pullUp="fetchMoreDate" v-if="stories.length" :data="stories" class="home-page-content">
+      <div>
+        <div v-if="sliders.length" class="slider-wrapper">
+          <div class="slider-content">
+            <slider>
+              <div v-for="item in sliders">
+                <img :src="item.image">
+              </div>
+            </slider>
           </div>
-        </slider>
+        </div>
+        <div class="newList">
+          <div class="model">
+            <ul>
+              <li v-for="story in stories" :key="story.id" class="new border-1px"
+                  @click="goNew(story.id)">
+                <span class="title">{{story.title}}</span>
+                <span class="avatar" v-for="(item,index) in story.images" v-if="index<1"><img
+                  v-lazy="attachImageUrl(item)"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
-    <!--<home-page-detail ref="homePageDetail"></home-page-detail>-->
+    </scroll>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import axios from 'axios'
   import Slider from 'base/slider/slider'
+  import Scroll from 'base/scroll/scroll'
   import HomePageDetail from 'components/home-page-detail/home-page-detail'
-  import {getSlider} from 'api/homePage'
+  import {getSlider, getNews} from 'api/homePage'
   import {attachImageUrl} from 'common/js/dom'
+  import {mapGetters} from 'vuex'
 
   export default {
     data() {
       return {
-        sliders: []
+        sliders: [],
+        date: Date,
+        dateStr: '',
+        pullUp: true
+      }
+    },
+    created() {
+      if (this.isFirstLoad) {
+        this.fetchData();
+        this.$store.dispatch('changeFirstLoad');
+        this.initDate();
       }
     },
     mounted() {
       setTimeout(() => {
         this._getSlider()
       }, 20)
+      console.log(this.homepageDate)
     },
     methods: {
       _getSlider() {
@@ -42,20 +71,97 @@
         })
         return data
       },
-//      attachImageUrl(url) {
-//        if (url !== 'undefined') {
-//          let reg = /http\w{0,1}:\/\/p/g
-//          return url.replace(reg, 'https://images.weserv.nl/?url=p')
-//        }
-//      },
-      //显示侧边栏，在其显示时访问他的获取数据方法，从而使better-scroll能够计算出中间主题列表高度
+      //获取最新消息
+      fetchData() {
+        getNews().then((response) => {
+          let stories = response.data.stories;
+          let ids = stories.map(story => story.id)
+
+          this.$store.dispatch('addNews', {
+            stories: stories,
+            ids: ids
+          })
+          this.$store.dispatch('addAllNews', stories);
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
+      //转换图片url
+      attachImageUrl(srcUrl) {
+        if (srcUrl !== undefined) {
+          return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
+        }
+      },
+      searchMore() {
+        console.log(this.homepageDateStr)
+      },
+      //获取第一次加载当前日期
+      initDate() {
+        this.date = new Date();
+        this.$store.dispatch('addDate', new Date(this.date.getTime()));
+        this.$store.dispatch('addHomePageDate', new Date(this.date.getTime()));
+        this.changeDateStr();
+      },
+      //把日期改为字符串形式
+      changeDateStr() {
+        let nowDate = new Date(this.homepageDate.getTime());
+        let year = nowDate.getFullYear();
+        let month = nowDate.getMonth() + 1;
+        let date = nowDate.getDate();
+        month = month < 10 ? '0' + month : month;
+        date = date < 10 ? '0' + date : date;
+
+        this.dateStr = year.toString() + month.toString() + date.toString();
+        this.$store.dispatch('addDateStr', this.dateStr)
+        this.$store.dispatch('addHomePageDateStr', this.dateStr)
+      },
+      //将日期推前一天
+      decreaseDateStr() {
+        let homeDate = this.homepageDate;
+        homeDate.setDate(homeDate.getDate() - 1)
+        this.$store.dispatch('addDate', new Date(homeDate.getTime()))
+        this.$store.dispatch('addHomePageDate', new Date(homeDate.getTime()))
+        this.changeDateStr();
+      },
+      //获取前一天的新闻
+      fetchMoreDate() {
+        axios.get('api/news/before/' + this.homepageDateStr).then((response) => {
+          let stories = response.data.stories;
+          let ids = stories.map(story => story.id)
+
+          this.$store.dispatch('addNews', {
+            stories: stories,
+            ids: ids
+          })
+        }).catch((error) => {
+          console.log(error)
+        })
+        this.decreaseDateStr();
+      },
+      //去往详情页
+      goNew(id) {
+        this.$store.state.id = id;
+        this.$router.push({name: 'newDetail', params: {id: id}});
+        this.$store.dispatch('judgeCollectState');
+        this.$store.dispatch('changeGoType', 1);
+
+      },
       show() {
         this.$refs.sidebar.open()
       },
     },
+    computed: {
+      ...mapGetters([
+        'stories',
+        'isFirstLoad',
+        'homepageDate',
+        'homepageDateStr'
+      ])
+    },
     //注册组件
     components: {
-      Slider
+      Slider,
+      Scroll
     }
   }
 </script>

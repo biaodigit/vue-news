@@ -29,28 +29,8 @@
         this.$store.dispatch('changeFirstLoad');
         this.initDate();
       }
-      this.$on('refresh',() => {
-        this.initDate();
-        this.refreshData();
-      })
-      this.$on('loadMore',() => {
-        this.loadMoreData();
-      })
     },
     methods:{
-      //下拉刷新回掉函数
-      refreshData() {
-        this.$store.dispatch('deleteData');
-        this.$nextTick(() => {
-          this.fetchData();
-        })
-      },
-      //上拉加载回掉函数
-      loadMoreData() {
-        this.$nextTick(() => {
-          this.fetchMoreDate();
-        })
-      },
       //获取最新消息
       fetchData() {
         axios.get('api/news/latest').then((response) => {
@@ -77,8 +57,6 @@
         this.date = new Date();
         this.$store.dispatch('addDate',new Date(this.date.getTime()));
         this.$store.dispatch('addHomePageDate',new Date(this.date.getTime()));
-//        this.$store.dispatch('addDate',this.date);
-//        this.$store.dispatch('addHomePageDate',this.date);
         this.changeDateStr();
       },
       //把日期改为字符串形式

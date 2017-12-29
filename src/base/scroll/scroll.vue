@@ -31,10 +31,6 @@
           return []
         }
       },
-      pullDown: {
-        type: Boolean,
-        default: false
-      },
       pullUp: {
         type: Boolean,
         default: false
@@ -65,11 +61,20 @@
         })
 
         if (this.listenScroll) {
-          let self = this
           this.scroll.on('scroll', (pos) => {
-            self.$emit('scroll', pos)
+            this.$emit('scroll', pos)
           })
         }
+
+        if (this.pullUp) {
+          this.scroll.on('scrollEnd', () => {
+            if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
+              this.$emit('pullUp')
+              console.log(1)
+            }
+          })
+        }
+
       },
       refresh() {
         this.scroll && this.scroll.refresh()
@@ -79,5 +84,4 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  @import "scroll.styl"
 </style>
