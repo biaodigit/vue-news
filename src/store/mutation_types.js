@@ -3,7 +3,8 @@
  */
 export const CHANGE_CURRENT_THEME_ID = 'CHANGE_CURRENT_THEME_ID'
 export const ADD_NEWS = 'ADD_NEWS'
-export const ADD_NEWID ='ADD_NEWID'
+export const ADD_IDS = 'ADD_IDS'
+export const ADD_NEW_ID ='ADD_NEWID'
 export const ADD_THEME_NEWID = 'ADD_THEME_NEWID'
 export const STORY_EXTRA = 'STORY_EXTRA'
 export const CHANGE_FIRST_LOAD = 'CHANGE_FIRST_LOAD'

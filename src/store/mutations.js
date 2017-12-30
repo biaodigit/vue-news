@@ -9,18 +9,22 @@ export default {
      state.currentThemeId = id;
   },
   //增加首页新闻数组和首页新闻id数组
-  [types.ADD_NEWS](state,payload){
-    state.stories = state.stories.concat(payload.stories);
-    if(state.ids.indexOf(payload.ids[0]) < 0) {
-      state.ids = state.ids.concat(payload.ids);
-    }
+  [types.ADD_NEWS](state,stories){
+    state.stories = stories;
+  },
+  [types.ADD_IDS](state, ids){
+    state.ids = ids
+  },
+  //增加全部加载过的新闻到数组
+  [types.ADD_ALL_NEWS](state,stories){
+    state.allStories = state.allStories.concat(stories)
   },
   //添加更多的id数组
   [types.ADD_MORE_IDS](state,ids){
   state.ids = state.ids.concat(ids);
   },
   //改变当前新闻详情页id
-  [types.ADD_NEWID](state,id){
+  [types.ADD_NEW_ID](state,id){
     state.id = id;
   },
   //改变第一次进入首页状态
@@ -65,8 +69,8 @@ export default {
     }
   },
   //改变跳转详情页的路由状态，判断是从哪里跳入
-  [types.CHANGE_GO_TYPES](state,id){
-    state.goType = id;
+  [types.CHANGE_GO_TYPES](state,type){
+    state.goType = type;
   },
   //增加主题新闻数据
   [types.ADD_THEME](state,payload){
@@ -75,10 +79,6 @@ export default {
   //改变主编id
   [types.ADD_EDITOR_ID](state,payload){
     state.editor = payload;
-  },
-  //增加全部加载过的新闻到数组
-  [types.ADD_ALL_NEWS](state,stories){
-    state.allStories = state.allStories.concat(stories)
   },
   //添加下一篇新闻id
   [types.ADD_NEXT_ID](state,id){

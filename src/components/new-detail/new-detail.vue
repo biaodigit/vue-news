@@ -12,6 +12,7 @@
   import axios from 'axios'
   import router from '../../router'
   import BottomMenu from '../bottom-menu/bottom-menu'
+  import {mapGetters} from 'vuex'
 
   export default {
     data() {
@@ -32,14 +33,15 @@
     methods:{
       //获取详情页内容
       fetchData() {
-        axios.get('api/news/'+ this.$store.state.id).then((response) => {
-          response.data.body = this.attachBodyContent(response.data.body)
-          this.data = response.data;
+        axios.get('api/news/'+ this.id).then((res) => {
+          res.data.body = this.attachBodyContent(res.data.body)
+          this.data = res.data;
+          console.log(res)
         }).catch((error) => {
             console.log(error)
         });
 
-        this.$store.dispatch('addNextId',this.$store.state.id)
+//        this.$store.dispatch('addNextId',this.id)
       },
       //替换头部背景图片url
       attachImageUrl(srcUrl) {
@@ -55,8 +57,12 @@
     computed:{
       //返回当前模式
       model() {
-        return this.$store.getters.getModel
-      }
+        return this.isNight ? 'night' : 'morning'
+      },
+      ...mapGetters([
+        'id',
+        'isNight'
+      ])
     },
     //注册组件
     components:{
@@ -65,35 +71,7 @@
   }
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus" scoped>
+<style scoped lang="stylus" rel="stylesheet/stylus">
+  @import "new-detail.styl"
   @import '../../../static/css/news_qa.auto.css'
-
-  .newDetail
-    width 100%
-    z-index 10
-    .bg-image
-      position relative
-      width 100%
-      height  250px
-      z-index -1
-      .title
-        position absolute
-        bottom 0
-        font-size 18px
-        padding 0 10px 10px 15px
-        color rgb(255,255,255)
-      img
-        position absolute
-        width 100%
-        height 250px
-    .body
-      position absolute
-      width 100%
-      &.morning
-        color rgb(51,51,51)
-        background-color rgb(255,255,255)
-      &.night
-        color rgb(184,184,184)
-        background-color rgb(52,52,52)
-
 </style>

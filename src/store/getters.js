@@ -23,3 +23,5 @@ export const isFirstLoad = state => state.isFirstLoad
 export const homepageDate = state => state.homepageDate
 
 export const homepageDateStr = state => state.homepageDateStr
+
+export const id = state => state.id
