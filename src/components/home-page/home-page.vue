@@ -13,12 +13,12 @@
         </div>
         <div class="newList">
           <div class="model" :class="model">
-            <ul>
+            <ul style="padding: 0">
               <li v-for="story in stories" :key="story.id" class="new border-1px"
                   @click="goNew(story.id)" :class="model">
                 <span class="title">{{story.title}}</span>
                 <span class="avatar" v-for="(item,index) in story.images" v-if="index<1"><img
-                  v-lazy="attachImageUrl(item)"></span>
+                  :src="attachImageUrl(item)"></span>
               </li>
             </ul>
           </div>
@@ -32,7 +32,6 @@
   import axios from 'axios'
   import Slider from 'base/slider/slider'
   import Scroll from 'base/scroll/scroll'
-  import HomePageDetail from 'components/home-page-detail/home-page-detail'
   import {getSlider, getNews} from 'api/homePage'
   import {attachImageUrl} from 'common/js/dom'
   import {mapGetters, mapMutations, mapActions} from 'vuex'

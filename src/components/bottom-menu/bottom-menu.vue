@@ -73,7 +73,8 @@
 
 <script type="text/ecmascript-6">
   import router from '../../router'
-  import axios from  'axios'
+  import axios from 'axios'
+  import {mapMutations} from 'vuex'
 
   export default {
     data() {
@@ -89,7 +90,7 @@
     },
     //观察路由跳转数据更新
     watch: {
-      '$route'(to, from){
+      '$route'(to, from) {
         this.fetchExtraData();
       }
     },
@@ -97,13 +98,14 @@
       //获取新闻
       fetchExtraData() {
         let id = this.$store.state.id;
+        console.log(id)
         axios.get('api/story-extra/' + this.$store.state.id).then(response => {
           let long_comments = response.data.long_comments;
           let popularity = response.data.popularity;
           let short_comments = response.data.short_comments;
           let comments = response.data.comments;
 
-          this.$store.dispatch('changeStoryExtra', {
+          this.setStoryExtra({
             long_comments: long_comments,
             short_comments: short_comments,
             comments: comments,
@@ -115,12 +117,12 @@
       },
       //返回上一级路由，判断是从哪里进入
       goBack() {
-        if (this.$store.state.goType == 1) {
+        if (this.$store.state.goType === 1) {
           router.push({name: 'homePage'})
-        } else if (this.$store.state.goType == 2) {
+        } else if (this.$store.state.goType === 2) {
           router.push({name: 'collect'});
           this.$store.dispatch('changeGoType', 1);
-        } else if (this.$store.state.goType == 3) {
+        } else if (this.$store.state.goType === 3) {
           router.push({name: 'themeDetail', params: {id: this.$store.state.currentThemeId}});
         }
         console.log(this.$store.state.homepageDate);
@@ -149,11 +151,11 @@
         document.scrollingElement.scrollTop = this.scroll
       },
       //改变收藏状态
-      changeCollect(){
+      changeCollect() {
         this.$store.dispatch('changeCollectState')
       },
       //跳转评论路由页面
-      goComments(id){
+      goComments(id) {
         router.push({name: 'comments', params: {id: id}})
       },
       //将日期推前一天
@@ -190,7 +192,7 @@
         })
       },
       //加载下一篇新闻
-      goNext(){
+      goNext() {
         if (this.$store.state.goType === 1) {
           if (this.$store.state.ids.indexOf(this.$store.state.nextId) > 0) {
             let id = this.$store.state.nextId;
@@ -211,11 +213,14 @@
             alert('已到最后一篇')
           }
         }
-      }
+      },
+      ...mapMutations({
+        setStoryExtra: 'STORY_EXTRA'
+      })
     },
     computed: {
       //返回当前新闻详情页id
-      newId(){
+      newId() {
         return this.$store.state.id;
       },
       //返回当前模式

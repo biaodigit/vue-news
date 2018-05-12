@@ -1,9 +1,11 @@
 <template>
     <div class="newDetail">
-      <div class="content-wrapper">
-        <div class="bg-image"  v-if="data.image"><img :src="attachImageUrl(data.image)" v-lazy="attachImageUrl(data.image)"><span class="title">{{data.title}}</span></div>
-        <div class="body" v-html="data.body" :class="model"></div>
-      </div>
+      <scroll>
+        <div class="content-wrapper">
+          <div class="bg-image"  v-if="data.image"><img :src="attachImageUrl(data.image)" v-lazy="attachImageUrl(data.image)"><span class="title">{{data.title}}</span></div>
+          <div class="body" v-html="data.body" :class="model"></div>
+        </div>
+      </scroll>
       <bottom-menu></bottom-menu>
     </div>
 </template>
@@ -11,6 +13,7 @@
 <script type="text/ecmascript-6">
   import axios from 'axios'
   import router from '../../router'
+  import Scroll from 'base/scroll/scroll'
   import BottomMenu from '../bottom-menu/bottom-menu'
   import {mapGetters} from 'vuex'
 
@@ -40,7 +43,6 @@
         }).catch((error) => {
             console.log(error)
         });
-
 //        this.$store.dispatch('addNextId',this.id)
       },
       //替换头部背景图片url
@@ -66,6 +68,7 @@
     },
     //注册组件
     components:{
+      Scroll,
       BottomMenu
     }
   }

@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HomePage from 'components/home-page/home-page'
 import ThemeDetail from 'components/theme-detail/theme-detail'
-import NewDetail from 'components/new-detail/new-detail'
 import Collect from 'components/collect/collect'
 import Comments from 'components/comments/comments'
 import EditorsList from 'components/editors-list/editors-list'
@@ -10,12 +8,15 @@ import Editor from 'components/editor/editor'
 
 Vue.use(Router)
 
+const HomePage = () => import('components/home-page/home-page')
+const NewDetail = () => import('components/new-detail/new-detail')
+
 export default new Router({
   routes: [
     {
       path: '/',
       name: 'homePage',
-      component: HomePage
+      component: HomePage,
     },
     {
       path:'/themeDetail/:id',
