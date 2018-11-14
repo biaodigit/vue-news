@@ -19,12 +19,6 @@
 
 > vue2+vue-router+vuex+axios+better-scroll+mint-ui+stylus
 
-## demo预览地址
-
-[在线地址](http://lwdvue.cn/#/)
-
-PC端建议在chrome浏览器的移动端模式下浏览
-
 ## 功能
 
 - [x] 首页
